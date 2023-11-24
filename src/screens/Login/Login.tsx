@@ -1,13 +1,15 @@
 import BRQMoviesLogo from '@/assets/images/brq-movies-logo.png';
 import { Input } from '@/components/Input';
 import { Lock, User, XCircle } from 'phosphor-react-native';
-import { Image, TouchableOpacity } from 'react-native';
+import { Image, Keyboard, TouchableOpacity } from 'react-native';
 
 import { Button } from '@/components/Button';
 import { Text } from '@/components/Text';
+import { MainStackParamList } from '@/navigation/MainStack';
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useMemo } from 'react';
+import { useMemo, useRef } from 'react';
 import { Controller, useForm } from 'react-hook-form';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { useTheme } from 'styled-components/native';
 import { z } from 'zod';
 import { FormContainer, WrapperScreen } from './styles';
@@ -18,8 +20,9 @@ const loginSchema = z.object({
   password: z.string().min(1, 'A senha deve ser informada.').refine(password => !isNaN(Number(password)), { message: 'A senha deve ser numérica.' }),
 })
 
-export const Login = () => {
+export const LoginScreen: ScreenComponent<MainStackParamList, 'Login'> = ({ navigation }) => {
   const { colors } = useTheme();
+  const scrollRef = useRef<KeyboardAwareScrollView | null>(null)
 
   const {
     control,
@@ -38,6 +41,8 @@ export const Login = () => {
   const typeVariant = useMemo(() => isValid ? 'active' : 'disabled', [isValid])
 
   const onSubmit = handleSubmit(({ login, password }) => {
+    Keyboard.dismiss()
+
     if (login !== 'user' || password !== '123') {
       setError('login', {
         message: 'Credenciais inválidas.',
@@ -45,11 +50,25 @@ export const Login = () => {
       setError('password', {
         message: 'Credenciais inválidas.',
       })
+
+      return
     }
+
+    navigation.navigate('Home')
   })
 
   return (
-    <WrapperScreen>
+    <KeyboardAwareScrollView
+      ref={scrollRef}
+      keyboardShouldPersistTaps='always'
+      contentContainerStyle={{
+        flexGrow: 1
+      }}
+      centerContent
+      enableAutomaticScroll
+    >
+      <WrapperScreen>
+
       <Image source={BRQMoviesLogo} />
 
       <FormContainer>
@@ -97,7 +116,7 @@ export const Login = () => {
           )}
         />
 
-        <Button disabled={!isValid} type={typeVariant} loading={isLoading} onPress={onSubmit}>
+          <Button style={{ flexGrow: 1 }} disabled={!isValid} type={typeVariant} loading={isLoading} onPress={onSubmit}>
           <Text size='lg' weight='bold' type={typeVariant}>Entrar</Text>
         </Button>
       </FormContainer>
@@ -108,5 +127,6 @@ export const Login = () => {
         </Text>
       </TouchableOpacity>
     </WrapperScreen>
+    </KeyboardAwareScrollView>
   );
 };
