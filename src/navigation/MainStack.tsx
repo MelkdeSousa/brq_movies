@@ -1,7 +1,7 @@
 import { HomeScreen } from '@/screens/Home/Home';
+import { LoginScreen } from '@/screens/Login/Login';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { useTheme } from 'styled-components/native';
-import { LoginScreen } from '../screens/Login/Login';
 
 export type MainStackParamList = {
   Login: undefined;
@@ -21,7 +21,7 @@ export const MainStack = () => {
         statusBarStyle: 'light',
       }}>
       {/* @ts-ignore */}
-      <Screen name="Login" component={LoginScreen} />
+      <Screen name="Login" component={LoginScreen} /> 
       {/* @ts-ignore */}
       <Screen name="Home" component={HomeScreen} />
     </Navigator>

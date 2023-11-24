@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 import SplashScreen from 'react-native-splash-screen';
 import { ThemeProvider } from 'styled-components/native';
 import { MainStack } from './navigation/MainStack';
-import { theme } from './styles/theme';
+import { theme, themeRN } from './styles/theme';
 
 export const App = () => {
   useEffect(() => {
@@ -12,7 +12,7 @@ export const App = () => {
 
   return (
     <ThemeProvider theme={theme}>
-      <NavigationContainer>
+      <NavigationContainer theme={themeRN}>
         <MainStack />
       </NavigationContainer>
     </ThemeProvider>

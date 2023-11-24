@@ -1,3 +1,4 @@
+import { Theme } from '@react-navigation/native';
 import { DefaultTheme } from 'styled-components/native';
 
 export const colors: DefaultTheme['colors'] = {
@@ -79,3 +80,15 @@ export const theme: DefaultTheme = {
   spacing,
   radii,
 };
+
+export const themeRN: Theme = {
+  colors: {
+    background: colors.neutral,
+    primary: colors.primary,
+    card: colors.tertiary,
+    text: colors.secondary,
+    border: colors.primary,
+    notification: colors.primary
+  },
+  dark: false
+}

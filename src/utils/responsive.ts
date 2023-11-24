@@ -52,5 +52,6 @@ export {
   pixelSizeVertical,
   pixelThemeSizeHorizontal,
   pixelThemeSizeVertical,
-  widthPixel,
+  widthPixel
 };
+

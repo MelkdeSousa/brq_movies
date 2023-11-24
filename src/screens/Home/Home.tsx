@@ -3,9 +3,11 @@ import { Text } from '@/components/Text';
 import { MainStackParamList } from '@/navigation/MainStack';
 
 import { fontThemeInNumber } from '@/utils/responsive';
+import { DotsThreeOutlineVertical, SignOut } from 'phosphor-react-native';
 import { useState } from 'react';
 import { useWindowDimensions } from 'react-native';
 import { SceneMap, TabBar, TabView } from 'react-native-tab-view';
+import { HeaderButtonsProvider, HiddenItem, OverflowMenu } from 'react-navigation-header-buttons';
 import { useTheme } from 'styled-components/native';
 import { AllMoviesTab } from './AllMovies/AllMovies';
 import { FavoritesTab } from './Favorites/Favorites';
@@ -15,7 +17,7 @@ const renderScene = SceneMap({
   Favorites: FavoritesTab,
 });
 
-export const HomeScreen: ScreenComponent<MainStackParamList, 'Home'> = () => {
+export const HomeScreen: ScreenComponent<MainStackParamList, 'Home'> = ({ navigation }) => {
   const layout = useWindowDimensions();
   const { colors, fontFamily } = useTheme();
 
@@ -26,11 +28,20 @@ export const HomeScreen: ScreenComponent<MainStackParamList, 'Home'> = () => {
   ]);
 
   return (
+    <HeaderButtonsProvider stackType='native'>
     <Screen.Background>
-      <Screen.Container>
+        <Screen.Container style={{ flexDirection: 'row', justifyContent: 'space-between', }}>
         <Text size="3xl" weight="bold">
           BRQ Movies
         </Text>
+
+          <OverflowMenu
+            OverflowIcon={() => (
+              <DotsThreeOutlineVertical color={colors.grey} weight="fill" />
+            )}
+          >
+            <HiddenItem title="Sair" icon={<SignOut color={colors.grey} size={32} weight="fill" />} />
+          </OverflowMenu>
       </Screen.Container>
 
       <TabView
@@ -46,12 +57,13 @@ export const HomeScreen: ScreenComponent<MainStackParamList, 'Home'> = () => {
             style={{ backgroundColor: colors.neutral }}
             indicatorStyle={{ backgroundColor: colors.primary }}
           />
-        )}
+          )}
         navigationState={{ index, routes }}
         renderScene={renderScene}
         onIndexChange={setIndex}
         initialLayout={{ width: layout.width }}
       />
     </Screen.Background>
+    </HeaderButtonsProvider>
   );
 };
