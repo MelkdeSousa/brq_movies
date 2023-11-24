@@ -5,6 +5,7 @@ import { Image, Keyboard, TouchableOpacity } from 'react-native';
 
 import { Button } from '@/components/Button';
 import { Text } from '@/components/Text';
+import { useAuth } from '@/contexts/Auth';
 import { MainStackParamList } from '@/navigation/MainStack';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useMemo, useRef } from 'react';
@@ -28,6 +29,7 @@ export const LoginScreen: ScreenComponent<MainStackParamList, 'Login'> = ({
   navigation,
 }) => {
   const { colors } = useTheme();
+  const { login: handleLogin } = useAuth()
   const scrollRef = useRef<KeyboardAwareScrollView | null>(null);
 
   const {
@@ -52,20 +54,25 @@ export const LoginScreen: ScreenComponent<MainStackParamList, 'Login'> = ({
   );
 
   const onSubmit = handleSubmit(({ login, password }) => {
-    if (login !== 'user' || password !== '123') {
+    try {
+      handleLogin({ login, password })
+    } catch (error) {
       setError('login', {
-        message: 'Credenciais inválidas.',
-      });
-      setError('password', {
-        message: 'Credenciais inválidas.',
+        message: (error as Error).message,
       });
 
-      return;
+      setError('password', {
+        message: (error as Error).message,
+      });
     }
 
     Keyboard.dismiss();
 
-    navigation.navigate('Home');
+    navigation.reset({
+      routes: [{ name: 'Home' }],
+      history: [],
+      index: 0,
+    })
   });
 
   return (

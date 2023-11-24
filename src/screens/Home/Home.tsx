@@ -2,6 +2,7 @@ import { Screen } from '@/components/Screen';
 import { Text } from '@/components/Text';
 import { MainStackParamList } from '@/navigation/MainStack';
 
+import { useAuth } from '@/contexts/Auth';
 import { fontThemeInNumber } from '@/utils/responsive';
 import { DotsThreeOutlineVertical, SignOut } from 'phosphor-react-native';
 import { useState } from 'react';
@@ -20,6 +21,7 @@ const renderScene = SceneMap({
 export const HomeScreen: ScreenComponent<MainStackParamList, 'Home'> = ({ navigation }) => {
   const layout = useWindowDimensions();
   const { colors, fontFamily } = useTheme();
+  const { logout } = useAuth()
 
   const [index, setIndex] = useState(0);
   const [routes] = useState([
@@ -27,43 +29,52 @@ export const HomeScreen: ScreenComponent<MainStackParamList, 'Home'> = ({ naviga
     { key: 'Favorites', title: 'Filmes Favoritos' },
   ]);
 
+  const handleLogout = () => {
+    logout()
+    navigation.reset({
+      routes: [{ name: 'Login' }],
+      history: [],
+      index: 0,
+    })
+  }
+
   return (
     <HeaderButtonsProvider stackType='native'>
-    <Screen.Background>
+      <Screen.Background>
         <Screen.Container style={{ flexDirection: 'row', justifyContent: 'space-between', }}>
-        <Text size="3xl" weight="bold">
-          BRQ Movies
-        </Text>
+          <Text size="3xl" weight="bold">
+            BRQ Movies
+          </Text>
 
           <OverflowMenu
             OverflowIcon={() => (
               <DotsThreeOutlineVertical color={colors.grey} weight="fill" />
             )}
           >
-            <HiddenItem title="Sair" icon={<SignOut color={colors.grey} size={32} weight="fill" />} />
+            <HiddenItem title="Sair" onPress={handleLogout} icon={<SignOut color={colors.grey} size={32} weight="fill" />} />
           </OverflowMenu>
-      </Screen.Container>
+        </Screen.Container>
 
-      <TabView
-        renderTabBar={props => (
-          <TabBar
-            {...props}
-            activeColor={colors.primary}
-            labelStyle={{
-              fontSize: fontThemeInNumber('lg'),
-              fontFamily: fontFamily.bold,
-            }}
-            inactiveColor={colors.grey}
-            style={{ backgroundColor: colors.neutral }}
-            indicatorStyle={{ backgroundColor: colors.primary }}
-          />
+        <TabView
+          renderTabBar={props => (
+            <TabBar
+              {...props}
+              activeColor={colors.primary}
+              labelStyle={{
+                fontSize: fontThemeInNumber('lg'),
+                fontFamily: fontFamily.bold,
+              }}
+              inactiveColor={colors.grey}
+              style={{ backgroundColor: colors.neutral }}
+              indicatorStyle={{ backgroundColor: colors.primary }}
+            />
           )}
-        navigationState={{ index, routes }}
-        renderScene={renderScene}
-        onIndexChange={setIndex}
-        initialLayout={{ width: layout.width }}
-      />
-    </Screen.Background>
+          navigationState={{ index, routes }}
+          renderScene={renderScene}
+          onIndexChange={setIndex}
+          initialLayout={{ width: layout.width }}
+        />
+      </Screen.Background>
     </HeaderButtonsProvider>
   );
 };
