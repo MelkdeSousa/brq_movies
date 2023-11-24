@@ -8,7 +8,11 @@ import { DotsThreeOutlineVertical, SignOut } from 'phosphor-react-native';
 import { useState } from 'react';
 import { useWindowDimensions } from 'react-native';
 import { SceneMap, TabBar, TabView } from 'react-native-tab-view';
-import { HeaderButtonsProvider, HiddenItem, OverflowMenu } from 'react-navigation-header-buttons';
+import {
+  HeaderButtonsProvider,
+  HiddenItem,
+  OverflowMenu,
+} from 'react-navigation-header-buttons';
 import { useTheme } from 'styled-components/native';
 import { AllMoviesTab } from './AllMovies/AllMovies';
 import { FavoritesTab } from './Favorites/Favorites';
@@ -18,10 +22,12 @@ const renderScene = SceneMap({
   Favorites: FavoritesTab,
 });
 
-export const HomeScreen: ScreenComponent<MainStackParamList, 'Home'> = ({ navigation }) => {
+export const HomeScreen: ScreenComponent<MainStackParamList, 'Home'> = ({
+  navigation,
+}) => {
   const layout = useWindowDimensions();
   const { colors, fontFamily } = useTheme();
-  const { logout } = useAuth()
+  const { logout } = useAuth();
 
   const [index, setIndex] = useState(0);
   const [routes] = useState([
@@ -30,18 +36,19 @@ export const HomeScreen: ScreenComponent<MainStackParamList, 'Home'> = ({ naviga
   ]);
 
   const handleLogout = () => {
-    logout()
+    logout();
     navigation.reset({
       routes: [{ name: 'Login' }],
       history: [],
       index: 0,
-    })
-  }
+    });
+  };
 
   return (
-    <HeaderButtonsProvider stackType='native'>
+    <HeaderButtonsProvider stackType="native">
       <Screen.Background>
-        <Screen.Container style={{ flexDirection: 'row', justifyContent: 'space-between', }}>
+        <Screen.Container
+          style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
           <Text size="3xl" weight="bold">
             BRQ Movies
           </Text>
@@ -49,9 +56,12 @@ export const HomeScreen: ScreenComponent<MainStackParamList, 'Home'> = ({ naviga
           <OverflowMenu
             OverflowIcon={() => (
               <DotsThreeOutlineVertical color={colors.grey} weight="fill" />
-            )}
-          >
-            <HiddenItem title="Sair" onPress={handleLogout} icon={<SignOut color={colors.grey} size={32} weight="fill" />} />
+            )}>
+            <HiddenItem
+              title="Sair"
+              onPress={handleLogout}
+              icon={<SignOut color={colors.grey} size={32} weight="fill" />}
+            />
           </OverflowMenu>
         </Screen.Container>
 

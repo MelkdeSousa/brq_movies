@@ -13,7 +13,7 @@ const { Navigator, Screen } = createNativeStackNavigator<MainStackParamList>();
 
 export const MainStack = () => {
   const { colors } = useTheme();
-  const { user } = useAuth()
+  const { user } = useAuth();
 
   return (
     <Navigator
@@ -22,8 +22,7 @@ export const MainStack = () => {
         statusBarColor: colors.neutral,
         statusBarStyle: 'light',
       }}
-      initialRouteName={user?.login ? 'Home' : 'Login'}
-    >
+      initialRouteName={user?.login ? 'Home' : 'Login'}>
       {/* @ts-ignore */}
       <Screen name="Login" component={LoginScreen} />
       {/* @ts-ignore */}

@@ -88,7 +88,7 @@ export const themeRN: Theme = {
     card: colors.tertiary,
     text: colors.secondary,
     border: colors.primary,
-    notification: colors.primary
+    notification: colors.primary,
   },
-  dark: false
-}
+  dark: false,
+};
