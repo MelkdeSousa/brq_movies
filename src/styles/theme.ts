@@ -6,6 +6,7 @@ export const colors: DefaultTheme['colors'] = {
   tertiary: '#2E2F33',
   neutral: '#16171B',
   grey: '#A9A9A9',
+  error: '#e98d8d',
 };
 
 export const fontFamily: DefaultTheme['fontFamily'] = {

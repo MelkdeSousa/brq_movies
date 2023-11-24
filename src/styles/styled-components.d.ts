@@ -8,6 +8,7 @@ declare module 'styled-components/native' {
       tertiary: string;
       neutral: string;
       grey: string;
+      error: string;
     };
 
     fontFamily: {

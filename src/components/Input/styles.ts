@@ -3,16 +3,26 @@ import {
   pixelThemeSizeVertical,
 } from '@/utils/responsive';
 import styled from 'styled-components/native';
+import { ColorVariantsMap, KeyColorVariants } from '../Button/Button';
 
-type Focusable = {
+export type Focusable = {
+  focusColor?: KeyColorVariants;
   focused?: boolean;
+  unfocused?: KeyColorVariants;
+};
+const colorVariants: ColorVariantsMap = {
+  active: 'primary',
+  disabled: 'secondary',
+  error: 'error',
 };
 
+
 export const StyledInput = styled.TextInput.attrs<Focusable>(
-  ({ theme, focused }) => ({
+  ({ theme, focusColor =
+    'active', focused, unfocused = 'disabled' }) => ({
     placeholderTextColor: focused
-      ? theme.colors.primary
-      : theme.colors.secondary,
+      ? theme.colors[colorVariants[focusColor]]
+      : theme.colors[colorVariants[unfocused]],
     cursorColor: theme.colors.secondary,
   }),
 )`
@@ -24,7 +34,11 @@ export const StyledInput = styled.TextInput.attrs<Focusable>(
   padding: ${pixelThemeSizeVertical(0)} ${pixelThemeSizeHorizontal(0)};
 `;
 
-export const InputWrapper = styled.View<Focusable>`
+export const InputWrapper = styled.View`
+  row-gap: 8px;
+`
+
+export const InputContainer = styled.View<Focusable>`
   flex-direction: row;
   align-items: center;
 
@@ -34,8 +48,11 @@ export const InputWrapper = styled.View<Focusable>`
   border-radius: ${({ theme }) => theme.radii.base};
   border-bottom-left-radius: ${({ theme }) => theme.radii.none};
   border-bottom-right-radius: ${({ theme }) => theme.radii.none};
-  border-bottom-color: ${({ theme, focused }) =>
-    focused ? theme.colors.primary : theme.colors.secondary};
+  border-bottom-color: ${({ theme, focusColor = 'active', focused, unfocused = 'disabled' }) =>
+    focused
+      ? theme.colors[colorVariants[focusColor]]
+      : theme.colors[colorVariants[unfocused]]
+};
   border-bottom-width: 0.8px;
 
   padding: ${pixelThemeSizeVertical()} ${pixelThemeSizeHorizontal()};
