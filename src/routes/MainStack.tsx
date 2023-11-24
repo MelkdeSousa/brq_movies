@@ -1,11 +1,11 @@
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import {useTheme} from 'styled-components/native';
-import {Login} from '../screens/Login/Login';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { useTheme } from 'styled-components/native';
+import { Login } from '../screens/Login/Login';
 
-const {Navigator, Screen} = createNativeStackNavigator();
+const { Navigator, Screen } = createNativeStackNavigator();
 
 export const MainStack = () => {
-  const {colors} = useTheme();
+  const { colors } = useTheme();
 
   return (
     <Navigator

@@ -1,13 +1,13 @@
 import BRQMoviesLogo from '@/assets/images/brq-movies-logo.png';
-import {Input} from '@/components/Input';
-import {Lock, User, XCircle} from 'phosphor-react-native';
-import {useState} from 'react';
-import {Image} from 'react-native';
-import styled, {useTheme} from 'styled-components/native';
-import {pixelThemeSizeVertical} from '../../utils/responsive';
+import { Input } from '@/components/Input';
+import { Lock, User, XCircle } from 'phosphor-react-native';
+import { useState } from 'react';
+import { Image } from 'react-native';
+import styled, { useTheme } from 'styled-components/native';
+import { pixelThemeSizeVertical } from '../../utils/responsive';
 
 const WrapperScreen = styled.View`
-  background-color: ${({theme}) => theme.colors.neutral};
+  background-color: ${({ theme }) => theme.colors.neutral};
 
   flex: 1;
   justify-content: center;
@@ -21,7 +21,7 @@ const FormContainer = styled.View`
 `;
 
 export const Login = () => {
-  const {colors} = useTheme();
+  const { colors } = useTheme();
   const [userLogin, setUserLogin] = useState('');
   const [userPassword, setUserPassword] = useState('');
 

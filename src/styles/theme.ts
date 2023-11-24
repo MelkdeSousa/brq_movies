@@ -1,4 +1,4 @@
-import {DefaultTheme} from 'styled-components/native';
+import { DefaultTheme } from 'styled-components/native';
 
 export const colors: DefaultTheme['colors'] = {
   primary: '#EC8B00',

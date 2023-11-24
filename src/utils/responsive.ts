@@ -1,7 +1,7 @@
-import {Dimensions, PixelRatio} from 'react-native';
-import {theme} from '../styles/theme';
+import { Dimensions, PixelRatio } from 'react-native';
+import { theme } from '../styles/theme';
 
-const {width: SCREEN_WIDTH, height: SCREEN_HEIGHT} = Dimensions.get('window');
+const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = Dimensions.get('window');
 
 const widthBaseScale = SCREEN_WIDTH / 414;
 const heightBaseScale = SCREEN_HEIGHT / 896;
