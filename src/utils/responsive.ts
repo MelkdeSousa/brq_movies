@@ -13,8 +13,10 @@ const normalize = (size: number, based = 'width') => {
   return Math.round(PixelRatio.roundToNearestPixel(newSize));
 };
 
+const removePx = (size: string) => Number(size.replace('px', ''));
+
 const getPixelValueOfSpacing = (size: KeySpacingTheme) => {
-  return Number(theme.spacing[size].replace('px', ''));
+  return Number(removePx(theme.spacing[size]));
 };
 
 const widthPixel = (size: number) => normalize(size, 'width');
@@ -52,6 +54,6 @@ export {
   pixelSizeVertical,
   pixelThemeSizeHorizontal,
   pixelThemeSizeVertical,
-  widthPixel
+  removePx,
+  widthPixel,
 };
-
