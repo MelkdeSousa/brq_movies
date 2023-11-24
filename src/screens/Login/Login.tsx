@@ -6,7 +6,7 @@ import { Image, Keyboard, TouchableOpacity } from 'react-native';
 import { Button } from '@/components/Button';
 import { Text } from '@/components/Text';
 import { MainStackParamList } from '@/navigation/MainStack';
-import { zodResolver } from "@hookform/resolvers/zod";
+import { zodResolver } from '@hookform/resolvers/zod';
 import { useMemo, useRef } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
@@ -14,121 +14,144 @@ import { useTheme } from 'styled-components/native';
 import { z } from 'zod';
 import { FormContainer, WrapperScreen } from './styles';
 
-
 const loginSchema = z.object({
   login: z.string().min(1, 'O login deve ser informado.'),
-  password: z.string().min(1, 'A senha deve ser informada.').refine(password => !isNaN(Number(password)), { message: 'A senha deve ser numérica.' }),
-})
+  password: z
+    .string()
+    .min(1, 'A senha deve ser informada.')
+    .refine(password => !isNaN(Number(password)), {
+      message: 'A senha deve ser numérica.',
+    }),
+});
 
-export const LoginScreen: ScreenComponent<MainStackParamList, 'Login'> = ({ navigation }) => {
+export const LoginScreen: ScreenComponent<MainStackParamList, 'Login'> = ({
+  navigation,
+}) => {
   const { colors } = useTheme();
-  const scrollRef = useRef<KeyboardAwareScrollView | null>(null)
+  const scrollRef = useRef<KeyboardAwareScrollView | null>(null);
 
   const {
     control,
-    handleSubmit, resetField, formState: {
-      isLoading, isValid
-    }, setError
+    handleSubmit,
+    resetField,
+    formState: { isLoading, isValid },
+    setError,
   } = useForm<typeof loginSchema._input>({
     defaultValues: {
       login: '',
       password: '',
-    }, reValidateMode: 'onBlur',
+    },
+    reValidateMode: 'onBlur',
     criteriaMode: 'firstError',
     resolver: zodResolver(loginSchema),
-  })
+  });
 
-  const typeVariant = useMemo(() => isValid ? 'active' : 'disabled', [isValid])
+  const typeVariant = useMemo(
+    () => (isValid ? 'active' : 'disabled'),
+    [isValid],
+  );
 
   const onSubmit = handleSubmit(({ login, password }) => {
-
     if (login !== 'user' || password !== '123') {
       setError('login', {
         message: 'Credenciais inválidas.',
-      })
+      });
       setError('password', {
         message: 'Credenciais inválidas.',
-      })
+      });
 
-      return
+      return;
     }
 
-    Keyboard.dismiss()
+    Keyboard.dismiss();
 
-    navigation.navigate('Home')
-  })
+    navigation.navigate('Home');
+  });
 
   return (
     <KeyboardAwareScrollView
       ref={scrollRef}
-      keyboardShouldPersistTaps='always'
-      overScrollMode='never'
+      keyboardShouldPersistTaps="always"
+      overScrollMode="never"
       contentContainerStyle={{
-        flexGrow: 1
+        flexGrow: 1,
       }}
       centerContent
-      enableAutomaticScroll
-    >
+      enableAutomaticScroll>
       <WrapperScreen>
+        <Image source={BRQMoviesLogo} />
 
-      <Image source={BRQMoviesLogo} />
+        <FormContainer>
+          <Controller
+            control={control}
+            name="login"
+            render={({
+              fieldState: { error },
+              field: { onChange, onBlur, value },
+            }) => (
+              <Input
+                right={<User color={colors.secondary} />}
+                left={
+                  <TouchableOpacity onPress={() => resetField('login')}>
+                    <XCircle color={colors.secondary} />
+                  </TouchableOpacity>
+                }
+                placeholder="Usuário"
+                value={value}
+                onBlur={onBlur}
+                onChangeText={onChange}
+                focusColor={error?.message ? 'error' : 'active'}
+                unfocused={error?.message ? 'error' : 'disabled'}
+                error={!!error?.message}
+                errorMessage={error?.message}
+              />
+            )}
+          />
 
-      <FormContainer>
-        <Controller
-          control={control}
-          name='login'
-          render={({ fieldState: { error }, field: { onChange, onBlur, value, }, }) => (
-            <Input
-              right={<User color={colors.secondary} />}
-              left={<TouchableOpacity onPress={() => resetField('login')}>
-                <XCircle color={colors.secondary} />
-              </TouchableOpacity>}
-              placeholder="Usuário"
-              value={value}
-              onBlur={onBlur}
-              onChangeText={onChange}
-              focusColor={error?.message ? 'error' : 'active'}
-              unfocused={error?.message ? 'error' : 'disabled'}
-              error={!!error?.message}
-              errorMessage={error?.message}
-            />
-          )}
-        />
+          <Controller
+            control={control}
+            name="password"
+            render={({
+              fieldState: { error },
+              field: { onChange, onBlur, value },
+            }) => (
+              <Input
+                right={<Lock color={colors.secondary} />}
+                left={
+                  <TouchableOpacity onPress={() => resetField('password')}>
+                    <XCircle color={colors.secondary} />
+                  </TouchableOpacity>
+                }
+                placeholder="Senha"
+                value={String(value)}
+                onBlur={onBlur}
+                onChangeText={onChange}
+                focusColor={error?.message ? 'error' : 'active'}
+                unfocused={error?.message ? 'error' : 'disabled'}
+                error={!!error?.message}
+                errorMessage={error?.message}
+              />
+            )}
+          />
 
-        <Controller
-          control={control}
-          name='password'
-          render={({ fieldState: { error }, field: { onChange, onBlur, value, }, }) => (
-            <Input
-              right={
-                <Lock color={colors.secondary} />
-              }
-              left={<TouchableOpacity onPress={() => resetField('password')}>
-                <XCircle color={colors.secondary} />
-              </TouchableOpacity>}
-              placeholder="Senha"
-              value={String(value)}
-              onBlur={onBlur}
-              onChangeText={onChange}
-              focusColor={error?.message ? 'error' : 'active'}
-              unfocused={error?.message ? 'error' : 'disabled'}
-              error={!!error?.message}
-              errorMessage={error?.message}
-            />
-          )}
-        />
+          <Button
+            style={{ flexGrow: 1 }}
+            disabled={!isValid}
+            type={typeVariant}
+            loading={isLoading}
+            onPress={onSubmit}>
+            <Text size="lg" weight="bold" type={typeVariant}>
+              Entrar
+            </Text>
+          </Button>
+        </FormContainer>
 
-          <Button style={{ flexGrow: 1 }} disabled={!isValid} type={typeVariant} loading={isLoading} onPress={onSubmit}>
-          <Text size='lg' weight='bold' type={typeVariant}>Entrar</Text>
-        </Button>
-      </FormContainer>
-
-      <TouchableOpacity>
-        <Text style={{ textDecorationLine: 'underline' }}>
-          Esqueceu a senha?
-        </Text>
-      </TouchableOpacity>
-    </WrapperScreen>
+        <TouchableOpacity>
+          <Text style={{ textDecorationLine: 'underline' }}>
+            Esqueceu a senha?
+          </Text>
+        </TouchableOpacity>
+      </WrapperScreen>
     </KeyboardAwareScrollView>
   );
 };

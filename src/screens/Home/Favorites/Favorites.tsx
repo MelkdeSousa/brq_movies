@@ -1,8 +1,10 @@
-import { Text } from "@/components/Text"
-import { View } from "react-native"
+import { Text } from '@/components/Text';
+import { View } from 'react-native';
 
 export const FavoritesTab = () => {
-    return <View>
-        <Text>Favorites</Text>
+  return (
+    <View>
+      <Text>Favorites</Text>
     </View>
-}
+  );
+};

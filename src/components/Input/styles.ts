@@ -16,10 +16,8 @@ const colorVariants: ColorVariantsMap = {
   error: 'error',
 };
 
-
 export const StyledInput = styled.TextInput.attrs<Focusable>(
-  ({ theme, focusColor =
-    'active', focused, unfocused = 'disabled' }) => ({
+  ({ theme, focusColor = 'active', focused, unfocused = 'disabled' }) => ({
     placeholderTextColor: focused
       ? theme.colors[colorVariants[focusColor]]
       : theme.colors[colorVariants[unfocused]],
@@ -36,7 +34,7 @@ export const StyledInput = styled.TextInput.attrs<Focusable>(
 
 export const InputWrapper = styled.View`
   row-gap: 8px;
-`
+`;
 
 export const InputContainer = styled.View<Focusable>`
   flex-direction: row;
@@ -48,11 +46,15 @@ export const InputContainer = styled.View<Focusable>`
   border-radius: ${({ theme }) => theme.radii.base};
   border-bottom-left-radius: ${({ theme }) => theme.radii.none};
   border-bottom-right-radius: ${({ theme }) => theme.radii.none};
-  border-bottom-color: ${({ theme, focusColor = 'active', focused, unfocused = 'disabled' }) =>
+  border-bottom-color: ${({
+    theme,
+    focusColor = 'active',
+    focused,
+    unfocused = 'disabled',
+  }) =>
     focused
       ? theme.colors[colorVariants[focusColor]]
-      : theme.colors[colorVariants[unfocused]]
-};
+      : theme.colors[colorVariants[unfocused]]};
   border-bottom-width: 0.8px;
 
   padding: ${pixelThemeSizeVertical()} ${pixelThemeSizeHorizontal()};

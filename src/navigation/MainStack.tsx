@@ -6,7 +6,7 @@ import { LoginScreen } from '../screens/Login/Login';
 export type MainStackParamList = {
   Login: undefined;
   Home: undefined;
-}
+};
 
 const { Navigator, Screen } = createNativeStackNavigator<MainStackParamList>();
 

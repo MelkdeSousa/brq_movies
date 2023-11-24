@@ -1,5 +1,5 @@
-import { pixelThemeSizeVertical } from "@/utils/responsive";
-import styled from "styled-components/native";
+import { pixelThemeSizeVertical } from '@/utils/responsive';
+import styled from 'styled-components/native';
 
 export const WrapperScreen = styled.View`
   background-color: ${({ theme }) => theme.colors.neutral};

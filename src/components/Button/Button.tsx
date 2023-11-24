@@ -14,11 +14,15 @@ export type ColorVariants = {
   type: KeyColorVariants;
 };
 
-export type ButtonProps = TouchableOpacityProps & ColorVariants & {
-  loading?: boolean;
-};
+export type ButtonProps = TouchableOpacityProps &
+  ColorVariants & {
+    loading?: boolean;
+  };
 
-export type ColorVariantsMap = Record<ColorVariants['type'], keyof typeof theme.colors>;
+export type ColorVariantsMap = Record<
+  ColorVariants['type'],
+  keyof typeof theme.colors
+>;
 
 const colorVariants: ColorVariantsMap = {
   active: 'primary',
@@ -28,7 +32,7 @@ const colorVariants: ColorVariantsMap = {
 
 const StyledButton = styled.TouchableOpacity<ColorVariants>`
   background-color: ${({ theme, type }) => theme.colors[colorVariants[type]]};
-  opacity: ${({ theme, type }) => type === 'disabled' ? 0.5 : 1};
+  opacity: ${({ theme, type }) => (type === 'disabled' ? 0.5 : 1)};
 
   border-radius: ${({ theme }) => theme.radii['2xl']};
   padding: ${pixelThemeSizeVertical(3)} ${pixelThemeSizeHorizontal()};
@@ -39,10 +43,21 @@ const StyledButton = styled.TouchableOpacity<ColorVariants>`
   width: 100%;
 `;
 
-export const Button = ({ type = 'active', children, loading = false, ...props }: ButtonProps) => {
-  const { colors } = useTheme()
+export const Button = ({
+  type = 'active',
+  children,
+  loading = false,
+  ...props
+}: ButtonProps) => {
+  const { colors } = useTheme();
 
-  return <StyledButton type={type} {...props}>
-    {loading ? <ActivityIndicator color={colors[colorVariants[type]]} /> : children}
-  </StyledButton>;
+  return (
+    <StyledButton type={type} {...props}>
+      {loading ? (
+        <ActivityIndicator color={colors[colorVariants[type]]} />
+      ) : (
+        children
+      )}
+    </StyledButton>
+  );
 };

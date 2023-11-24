@@ -27,7 +27,7 @@ const fontTheme = (size: keyof typeof theme.fontSize) => {
 
 const fontThemeInNumber = (size: keyof typeof theme.fontSize) => {
   const value = Number(theme.fontSize[size].replace('px', ''));
-  return heightPixel(value)
+  return heightPixel(value);
 };
 
 const fontPixel = (size: number) => heightPixel(size);
@@ -45,11 +45,12 @@ const pixelThemeSizeHorizontal = (size: KeySpacingTheme = 4) =>
 
 export {
   fontPixel,
-  fontTheme, fontThemeInNumber, heightPixel,
+  fontTheme,
+  fontThemeInNumber,
+  heightPixel,
   pixelSizeHorizontal,
   pixelSizeVertical,
   pixelThemeSizeHorizontal,
   pixelThemeSizeVertical,
-  widthPixel
+  widthPixel,
 };
-
