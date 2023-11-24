@@ -41,7 +41,6 @@ export const LoginScreen: ScreenComponent<MainStackParamList, 'Login'> = ({ navi
   const typeVariant = useMemo(() => isValid ? 'active' : 'disabled', [isValid])
 
   const onSubmit = handleSubmit(({ login, password }) => {
-    Keyboard.dismiss()
 
     if (login !== 'user' || password !== '123') {
       setError('login', {
@@ -54,6 +53,8 @@ export const LoginScreen: ScreenComponent<MainStackParamList, 'Login'> = ({ navi
       return
     }
 
+    Keyboard.dismiss()
+
     navigation.navigate('Home')
   })
 
@@ -61,6 +62,7 @@ export const LoginScreen: ScreenComponent<MainStackParamList, 'Login'> = ({ navi
     <KeyboardAwareScrollView
       ref={scrollRef}
       keyboardShouldPersistTaps='always'
+      overScrollMode='never'
       contentContainerStyle={{
         flexGrow: 1
       }}
