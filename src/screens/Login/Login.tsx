@@ -56,6 +56,14 @@ export const LoginScreen: ScreenComponent<MainStackParamList, 'Login'> = ({
   const onSubmit = handleSubmit(({ login, password }) => {
     try {
       handleLogin({ login, password });
+
+      Keyboard.dismiss();
+
+      navigation.reset({
+        routes: [{ name: 'Home' }],
+        history: [],
+        index: 0,
+      });
     } catch (error) {
       setError('login', {
         message: (error as Error).message,
@@ -65,14 +73,6 @@ export const LoginScreen: ScreenComponent<MainStackParamList, 'Login'> = ({
         message: (error as Error).message,
       });
     }
-
-    Keyboard.dismiss();
-
-    navigation.reset({
-      routes: [{ name: 'Home' }],
-      history: [],
-      index: 0,
-    });
   });
 
   return (
