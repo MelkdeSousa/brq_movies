@@ -11,7 +11,7 @@ export type MainStackParamList = {
   Login: undefined;
   Home: undefined;
   DetailMovie: {
-    movieId: DiscoveryMovie['id']
+    movie: DiscoveryMovie
   }
 };
 
@@ -36,7 +36,7 @@ export const MainStack = () => {
       {/* @ts-ignore */}
       <Screen name="Home" component={HomeScreen} />
       {/* @ts-ignore */}
-      <Screen name='DetailMovie' component={DetailMovieScreen} />
+      <Screen name='DetailMovie' component={DetailMovieScreen} options={{ statusBarTranslucent: true, statusBarStyle: 'light', statusBarAnimation: 'fade' }} />
     </Navigator>
   );
 };

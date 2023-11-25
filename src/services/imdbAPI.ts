@@ -2,8 +2,11 @@ import { env } from '@/config/env';
 import { simpleFetch } from '@/utils/simpleFetch';
 import {
   AuthenticationResponse,
+  DetailMovieResponse,
   DiscoverResponse,
-  ErrorResponse,
+  DiscoveryMovie,
+  ErrorDetailMovieResponse,
+  ErrorDiscoveryMoviesResponse,
 } from './imdbTypes';
 
 export const IMDBConfig = {
@@ -32,9 +35,20 @@ export const listMovies = async (page = 1) => {
       options,
     );
   } catch (error) {
-    throw new Error((error as ErrorResponse).errors?.join('\n'));
+    throw new Error((error as ErrorDiscoveryMoviesResponse).errors?.join('\n'));
+  }
+};
+
+export const detailMovie = async (id: DiscoveryMovie['id']) => {
+  try {
+    return await simpleFetch<DetailMovieResponse>(
+      `${IMDBConfig.baseUrl}/movie/${id}?language=pt-BR`,
+      options,
+    );
+  } catch (error) {
+    throw new Error((error as ErrorDetailMovieResponse).status_message);
   }
 };
 
 export const movieBanner = (posterPath: string) =>
-  `${IMDBConfig.imageBaseUrl}w500${posterPath}`;
+  `${IMDBConfig.imageBaseUrl}original${posterPath}`;

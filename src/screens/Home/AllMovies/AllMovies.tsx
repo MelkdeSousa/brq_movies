@@ -16,7 +16,7 @@ export const AllMoviesTab = () => {
         renderItem={({ item, index }) => (
           <MovieBanner
             index={index}
-            id={item.id}
+            movie={item}
             posterPath={item.poster_path}
             key={item.id}
           />

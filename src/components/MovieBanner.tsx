@@ -10,16 +10,16 @@ import { useTheme } from 'styled-components/native';
 export type MovieBannerProps = {
   posterPath: string;
   index: number;
-  id: DiscoveryMovie['id'];
+  movie: DiscoveryMovie;
 };
 
-export const MovieBanner = ({ posterPath, index, id }: MovieBannerProps) => {
+export const MovieBanner = ({ posterPath, index, movie }: MovieBannerProps) => {
   const { radii, spacing } = useTheme();
 
   const navigation = useNavigation<MainStackNavigationProp>()
 
   const handleDetailMovie = () => {
-    navigation.navigate('DetailMovie', { movieId: id })
+    navigation.navigate('DetailMovie', { movie })
   }
 
 
