@@ -5,8 +5,9 @@ import {
 } from '@/utils/responsive';
 import React from 'react';
 
-import { ActivityIndicator, TouchableOpacityProps } from 'react-native';
+import { TouchableOpacityProps } from 'react-native';
 import styled, { useTheme } from 'styled-components/native';
+import { Spinner } from '../Spinner';
 
 export type KeyColorVariants = 'active' | 'disabled' | 'error';
 
@@ -54,7 +55,7 @@ export const Button = ({
   return (
     <StyledButton type={type} {...props}>
       {loading ? (
-        <ActivityIndicator color={colors[colorVariants[type]]} />
+        <Spinner type={type} />
       ) : (
         children
       )}
