@@ -6,5 +6,13 @@ export const simpleFetch = async <Response = {}>(
 
   const data = await response.json();
 
+  if (response.status !== 200) {
+    if (Object.keys(data).length) {
+      throw data;
+    }
+
+    throw new Error('Error while fetching data');
+  }
+
   return data as Response;
 };
