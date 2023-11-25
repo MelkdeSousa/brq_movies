@@ -1,6 +1,10 @@
 import { env } from '@/config/env';
 import { simpleFetch } from '@/utils/simpleFetch';
-import { AuthenticationResponse, DiscoverResponse } from './imdbTypes';
+import {
+  AuthenticationResponse,
+  DiscoverResponse,
+  ErrorResponse,
+} from './imdbTypes';
 
 export const IMDBConfig = {
   imageBaseUrl: 'https://image.tmdb.org/t/p/',
@@ -21,11 +25,16 @@ export const checkAuthentication = async () =>
     options,
   );
 
-export const listMovies = async (page = 1) =>
-  await simpleFetch<DiscoverResponse>(
-    `${IMDBConfig.baseUrl}/discover/movie?include_adult=false&include_video=false&language=pt-BR&page=${page}&sort_by=popularity.desc`,
-    options,
-  );
+export const listMovies = async (page = 1) => {
+  try {
+    return await simpleFetch<DiscoverResponse>(
+      `${IMDBConfig.baseUrl}/discover/movie?include_adult=false&include_video=false&language=pt-BR&page=${page}&sort_by=popularity.desc`,
+      options,
+    );
+  } catch (error) {
+    throw new Error((error as ErrorResponse).errors.join('\n'));
+  }
+};
 
 export const movieBanner = (posterPath: string) =>
   `${IMDBConfig.imageBaseUrl}w500${posterPath}`;

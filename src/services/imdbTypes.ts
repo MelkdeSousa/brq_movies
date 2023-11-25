@@ -28,4 +28,9 @@ export type DiscoverResponse = {
   ];
 };
 
+export type ErrorResponse = {
+  errors: string[];
+  success: boolean;
+};
+
 export type DiscoveryMovie = DiscoverResponse['results'][0];
