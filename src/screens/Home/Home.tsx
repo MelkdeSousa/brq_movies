@@ -54,9 +54,7 @@ export const HomeScreen: ScreenComponent<MainStackParamList, 'Home'> = ({
           </Text>
 
           <OverflowMenu
-            OverflowIcon={() => (
-              <DotsThreeOutlineVertical color={colors.grey} weight="fill" />
-            )}>
+            OverflowIcon={<DotsThreeOutlineVertical color={colors.grey} weight="fill" />}>
             <HiddenItem
               title="Sair"
               onPress={handleLogout}
@@ -71,7 +69,8 @@ export const HomeScreen: ScreenComponent<MainStackParamList, 'Home'> = ({
               {...props}
               activeColor={colors.primary}
               labelStyle={{
-                fontSize: fontThemeInNumber('lg'),
+                textAlign: 'center',
+                fontSize: fontThemeInNumber('base'),
                 fontFamily: fontFamily.bold,
               }}
               inactiveColor={colors.grey}

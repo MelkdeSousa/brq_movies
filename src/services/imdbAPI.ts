@@ -32,7 +32,7 @@ export const listMovies = async (page = 1) => {
       options,
     );
   } catch (error) {
-    throw new Error((error as ErrorResponse).errors.join('\n'));
+    throw new Error((error as ErrorResponse).errors?.join('\n'));
   }
 };
 
