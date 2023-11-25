@@ -26,8 +26,7 @@ export const MovieBanner = ({ posterPath, index }: MovieBannerProps) => {
       }}
       source={{
         uri: movieBanner(posterPath),
-        priority: FastImage.priority.normal,
-        cache: FastImage.cacheControl.web,
+        priority: FastImage.priority.high,
       }}
       resizeMode={FastImage.resizeMode.stretch}
     />
