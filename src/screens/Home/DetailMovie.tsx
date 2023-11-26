@@ -46,15 +46,17 @@ export const DetailMovieScreen: ScreenComponent<
                 resizeMode="stretch"
               />
               <Screen.Container style={{ rowGap: removePx(spacing['4']) }}>
-                <Text size="4xl" weight="bold">
+                <Text size="3xl" weight="bold">
                   {movie.title}
                 </Text>
 
-                <Text size="3xl" type="inactive" weight="bold">
+                <Text size="xl" type="inactive" weight="bold">
                   Sinopse
                 </Text>
 
-                <Text size="2xl">{movie.overview}</Text>
+                <Text size="xl">
+                  {movie.overview || 'Nenhuma sinopse informada.'}
+                </Text>
               </Screen.Container>
             </>
           )}

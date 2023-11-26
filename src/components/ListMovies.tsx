@@ -6,13 +6,17 @@ const Footer = ({ loading }: { loading: boolean }) => {
   return loading && <Spinner type="active" size="large" />;
 };
 
-const Empty = ({ error }: Pick<MoviesState, 'error'>) => (
-  <Text style={{ textAlign: 'center' }} size="4xl">
-    😢 Não foi possivel carregar os filmes.
-    {'\n'}
-    {error.has && <Text>{error.message}</Text>}
-  </Text>
-);
+const Empty = ({ error }: Pick<MoviesState, 'error'>) => {
+  if (!error.has) return null
+
+  return (
+    <Text style={{ textAlign: 'center' }} size="4xl">
+      😢 Não foi possivel carregar os filmes.
+      {'\n'}
+      {error.has && <Text>{error.message}</Text>}
+    </Text>
+  );
+}
 
 export const ListMovies = {
   Footer,
