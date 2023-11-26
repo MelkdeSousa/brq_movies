@@ -16,22 +16,23 @@ export type MovieBannerProps = {
 export const MovieBanner = ({ posterPath, index, movie }: MovieBannerProps) => {
   const { radii, spacing } = useTheme();
 
-  const navigation = useNavigation<MainStackNavigationProp>()
+  const navigation = useNavigation<MainStackNavigationProp>();
 
   const handleDetailMovie = () => {
-    navigation.navigate('DetailMovie', { movie })
-  }
-
+    navigation.navigate('DetailMovie', { movie });
+  };
 
   return (
-    <TouchableOpacity style={{
-      width: 150,
-      height: removePx(spacing['64']),
-      flex: 1,
-      justifyContent: 'center',
-      alignItems: 'center',
-      marginBottom: heightPixel(16),
-    }} onPress={handleDetailMovie}>
+    <TouchableOpacity
+      style={{
+        width: 150,
+        height: removePx(spacing['64']),
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginBottom: heightPixel(16),
+      }}
+      onPress={handleDetailMovie}>
       <FastImage
         style={{
           borderRadius: removePx(radii['2xl']),

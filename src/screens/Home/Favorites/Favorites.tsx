@@ -6,15 +6,16 @@ import { FlashList } from '@shopify/flash-list';
 import React from 'react';
 import { RefreshControl } from 'react-native';
 
-
 export const FavoritesTab = () => {
-  const { movies, loading, error, loadListMovies } = useMovies()
+  const { movies, loading, error, loadListMovies } = useMovies();
 
   return (
     <Screen.Container style={{ flex: 1, padding: 0 }}>
       <FlashList
         data={movies}
-        refreshControl={<RefreshControl refreshing={loading} onRefresh={loadListMovies} />}
+        refreshControl={
+          <RefreshControl refreshing={loading} onRefresh={loadListMovies} />
+        }
         renderItem={({ item, index }) => (
           <MovieBanner
             index={index}

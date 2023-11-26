@@ -1,18 +1,17 @@
-import { ActivityIndicator, ActivityIndicatorProps } from "react-native";
-import { useTheme } from "styled-components/native";
-import { ColorVariants, ColorVariantsMap } from "./Button/Button";
+import { ActivityIndicator, ActivityIndicatorProps } from 'react-native';
+import { useTheme } from 'styled-components/native';
+import { ColorVariants, ColorVariantsMap } from './Button/Button';
 
-export type SpinnerProps = Partial<ColorVariants> & ActivityIndicatorProps
+export type SpinnerProps = Partial<ColorVariants> & ActivityIndicatorProps;
 
 const colorVariants: ColorVariantsMap = {
-    active: 'primary',
-    disabled: 'secondary',
-    error: 'error',
+  active: 'primary',
+  disabled: 'secondary',
+  error: 'error',
 };
 
-
 export const Spinner = ({ type = 'active', ...props }: SpinnerProps) => {
-    const { colors } = useTheme()
+  const { colors } = useTheme();
 
-    return <ActivityIndicator {...props} color={colors[colorVariants[type]]} />
-}
+  return <ActivityIndicator {...props} color={colors[colorVariants[type]]} />;
+};

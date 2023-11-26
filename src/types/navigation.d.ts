@@ -1,4 +1,8 @@
-import { NavigationProp, ParamListBase, RouteProp } from '@react-navigation/native';
+import {
+  NavigationProp,
+  ParamListBase,
+  RouteProp,
+} from '@react-navigation/native';
 
 declare global {
   type Screen<ParamList, RouteName extends keyof ParamList> = {

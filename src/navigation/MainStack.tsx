@@ -11,8 +11,8 @@ export type MainStackParamList = {
   Login: undefined;
   Home: undefined;
   DetailMovie: {
-    movie: DiscoveryMovie
-  }
+    movie: DiscoveryMovie;
+  };
 };
 
 export type MainStackNavigationProp = NavigationProp<MainStackParamList>;
@@ -30,7 +30,6 @@ export const MainStack = () => {
         statusBarColor: colors.neutral,
         statusBarStyle: 'light',
         statusBarTranslucent: true,
-
       }}
       initialRouteName={user?.login ? 'Home' : 'Login'}>
       {/* @ts-ignore */}
@@ -38,7 +37,11 @@ export const MainStack = () => {
       {/* @ts-ignore */}
       <Screen name="Home" component={HomeScreen} />
       {/* @ts-ignore */}
-      <Screen name='DetailMovie' component={DetailMovieScreen} options={{ statusBarTranslucent: true, statusBarColor: 'transparent' }} />
+      <Screen
+        name="DetailMovie"
+        component={DetailMovieScreen}
+        options={{ statusBarTranslucent: true, statusBarColor: 'transparent' }}
+      />
     </Navigator>
   );
 };

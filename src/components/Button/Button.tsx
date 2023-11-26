@@ -54,11 +54,7 @@ export const Button = ({
 
   return (
     <StyledButton type={type} {...props}>
-      {loading ? (
-        <Spinner type={type} />
-      ) : (
-        children
-      )}
+      {loading ? <Spinner type={type} /> : children}
     </StyledButton>
   );
 };

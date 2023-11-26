@@ -21,8 +21,8 @@ export type AuthProviderProps = {
 };
 
 const initialState: AuthContextProps = {
-  login: () => { },
-  logout: () => { },
+  login: () => {},
+  logout: () => {},
   user: null,
 };
 

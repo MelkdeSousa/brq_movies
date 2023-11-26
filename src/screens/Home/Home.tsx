@@ -30,10 +30,13 @@ export const HomeScreen: ScreenComponent<MainStackParamList, 'Home'> = ({
   const { logout } = useAuth();
 
   const [index, setIndex] = useState(0);
-  const routes = useMemo(() => [
-    { key: 'AllMovies', title: 'Todos os Filmes' },
-    { key: 'Favorites', title: 'Filmes Favoritos' },
-  ], []);
+  const routes = useMemo(
+    () => [
+      { key: 'AllMovies', title: 'Todos os Filmes' },
+      { key: 'Favorites', title: 'Filmes Favoritos' },
+    ],
+    [],
+  );
 
   const handleLogout = () => {
     logout();
@@ -54,7 +57,9 @@ export const HomeScreen: ScreenComponent<MainStackParamList, 'Home'> = ({
           </Text>
 
           <OverflowMenu
-            OverflowIcon={<DotsThreeOutlineVertical color={colors.grey} weight="fill" />}>
+            OverflowIcon={
+              <DotsThreeOutlineVertical color={colors.grey} weight="fill" />
+            }>
             <HiddenItem
               title="Sair"
               onPress={handleLogout}
