@@ -6,7 +6,7 @@ import { useAuth } from '@/contexts/Auth';
 import { fontThemeInNumber, removePx } from '@/utils/responsive';
 import { DotsThreeOutlineVertical, SignOut } from 'phosphor-react-native';
 import { useMemo, useState } from 'react';
-import { useWindowDimensions } from 'react-native';
+import { StatusBar, useWindowDimensions } from 'react-native';
 import { SceneMap, TabBar, TabView } from 'react-native-tab-view';
 import {
   HeaderButtonsProvider,
@@ -49,7 +49,10 @@ export const HomeScreen: ScreenComponent<MainStackParamList, 'Home'> = ({
 
   return (
     <HeaderButtonsProvider stackType="native">
-      <Screen.Background style={{ paddingTop: removePx(spacing['3']) }}>
+      <Screen.Background
+        style={{
+          paddingTop: StatusBar.currentHeight ?? removePx(spacing['4']),
+        }}>
         <Screen.Container
           style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
           <Text size="3xl" weight="bold">
