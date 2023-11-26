@@ -7,7 +7,7 @@ export const simpleFetch = async <Response = {}>(
   const data = await response.json();
 
   if (response.status !== 200) {
-    if (Object.keys(data).length) {
+    if (Object.keys((data as object) || {}).length) {
       throw data;
     }
 
