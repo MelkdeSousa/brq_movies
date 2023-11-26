@@ -12,6 +12,7 @@ export type Focusable = {
 };
 const colorVariants: ColorVariantsMap = {
   active: 'primary',
+  inactive: 'grey',
   disabled: 'secondary',
   error: 'error',
 };

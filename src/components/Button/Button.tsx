@@ -9,7 +9,7 @@ import { TouchableOpacityProps } from 'react-native';
 import styled, { useTheme } from 'styled-components/native';
 import { Spinner } from '../Spinner';
 
-export type KeyColorVariants = 'active' | 'disabled' | 'error';
+export type KeyColorVariants = 'active' | 'disabled' | 'error' | 'inactive';
 
 export type ColorVariants = {
   type: KeyColorVariants;
@@ -27,6 +27,7 @@ export type ColorVariantsMap = Record<
 
 const colorVariants: ColorVariantsMap = {
   active: 'primary',
+  inactive: 'secondary',
   disabled: 'grey',
   error: 'error',
 };

@@ -10,6 +10,7 @@ export type FontVariants = {
 
 const colorVariants: ColorVariantsMap = {
   active: 'secondary',
+  inactive: 'primary',
   disabled: 'tertiary',
   error: 'error',
 };

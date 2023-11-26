@@ -6,6 +6,7 @@ export type SpinnerProps = Partial<ColorVariants> & ActivityIndicatorProps;
 
 const colorVariants: ColorVariantsMap = {
   active: 'primary',
+  inactive: 'grey',
   disabled: 'secondary',
   error: 'error',
 };
