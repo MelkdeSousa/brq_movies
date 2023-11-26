@@ -51,4 +51,4 @@ export const detailMovie = async (id: DiscoveryMovie['id']) => {
 };
 
 export const movieBanner = (posterPath: string) =>
-  `${IMDBConfig.imageBaseUrl}original${posterPath}`;
+  `${IMDBConfig.imageBaseUrl}w500${posterPath}`;
