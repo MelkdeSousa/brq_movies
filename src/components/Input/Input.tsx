@@ -1,5 +1,9 @@
 import React, { useState } from 'react';
-import { TextInputProps } from 'react-native';
+import {
+  NativeSyntheticEvent,
+  TextInputFocusEventData,
+  TextInputProps,
+} from 'react-native';
 import { Text } from '../Text';
 import { Focusable, InputContainer, InputWrapper, StyledInput } from './styles';
 
@@ -34,11 +38,11 @@ export const Input = ({
         <StyledInput
           {...props}
           focused={isFocused}
-          onFocus={e => {
+          onFocus={(e: NativeSyntheticEvent<TextInputFocusEventData>) => {
             setIsFocused(true);
             onFocus?.(e);
           }}
-          onBlur={e => {
+          onBlur={(e: NativeSyntheticEvent<TextInputFocusEventData>) => {
             setIsFocused(false);
             onBlur?.(e);
           }}

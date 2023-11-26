@@ -1,7 +1,8 @@
 import { MainStackNavigationProp } from '@/navigation/MainStack';
 import { removePx } from '@/utils/responsive';
 import { useNavigation } from '@react-navigation/native';
-import { ArrowLeft, Heart } from 'phosphor-react-native';
+import ArrowLeft from 'phosphor-react-native/src/icons/ArrowLeft';
+import Heart from 'phosphor-react-native/src/icons/Heart';
 import { useMemo } from 'react';
 import { StatusBar, TouchableOpacity, View } from 'react-native';
 import { useTheme } from 'styled-components/native';
@@ -12,13 +13,14 @@ export const HeaderMovie = () => {
   const { spacing, colors, radii } = useTheme();
   const navigation = useNavigation<MainStackNavigationProp>();
 
-  const buttonIconsProps = useMemo(() => (
-    {
+  const buttonIconsProps = useMemo(
+    () => ({
       style: { backgroundColor: 'transparent' },
       size: removePx(spacing['8']),
-      color: colors.primary
-    }
-  ), [])
+      color: colors.primary,
+    }),
+    [],
+  );
 
   return (
     <View
@@ -43,9 +45,7 @@ export const HeaderMovie = () => {
           alignItems: 'center',
         }}
         onPress={() => navigation.goBack()}>
-        <ArrowLeft
-          {...buttonIconsProps}
-        />
+        <ArrowLeft {...buttonIconsProps} />
       </TouchableOpacity>
 
       <TouchableOpacity
@@ -56,13 +56,9 @@ export const HeaderMovie = () => {
           justifyContent: 'center',
           alignItems: 'center',
         }}
-        onPress={() => { }}>
-        <Heart
-          {...buttonIconsProps}
-        />
+        onPress={() => {}}>
+        <Heart {...buttonIconsProps} />
       </TouchableOpacity>
     </View>
   );
 };
-
-

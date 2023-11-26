@@ -19,6 +19,7 @@ export const FavoritesTab = () => {
         renderItem={({ item, index }) => (
           <MovieBanner
             index={index}
+            movie={item}
             posterPath={item.poster_path}
             key={item.id}
           />

@@ -1,16 +1,17 @@
 import BRQMoviesLogo from '@/assets/images/brq-movies-logo.png';
 import { Input } from '@/components/Input';
-import { Lock, User, XCircle } from 'phosphor-react-native';
-import { Image, Keyboard, TouchableOpacity } from 'react-native';
+import Lock from 'phosphor-react-native/src/icons/Lock';
+import User from 'phosphor-react-native/src/icons/User';
+import XCircle from 'phosphor-react-native/src/icons/XCircle';
+import { Image, Keyboard, ScrollView, TouchableOpacity } from 'react-native';
 
 import { Button } from '@/components/Button';
 import { Text } from '@/components/Text';
 import { useAuth } from '@/contexts/Auth';
 import { MainStackParamList } from '@/navigation/MainStack';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useMemo, useRef } from 'react';
+import { useMemo } from 'react';
 import { Controller, useForm } from 'react-hook-form';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { useTheme } from 'styled-components/native';
 import { z } from 'zod';
 import { FormContainer, WrapperScreen } from './styles';
@@ -30,7 +31,6 @@ export const LoginScreen: ScreenComponent<MainStackParamList, 'Login'> = ({
 }) => {
   const { colors } = useTheme();
   const { login: handleLogin } = useAuth();
-  const scrollRef = useRef<KeyboardAwareScrollView | null>(null);
 
   const {
     control,
@@ -76,15 +76,7 @@ export const LoginScreen: ScreenComponent<MainStackParamList, 'Login'> = ({
   });
 
   return (
-    <KeyboardAwareScrollView
-      ref={scrollRef}
-      keyboardShouldPersistTaps="always"
-      overScrollMode="never"
-      contentContainerStyle={{
-        flexGrow: 1,
-      }}
-      centerContent
-      enableAutomaticScroll>
+    <ScrollView>
       <WrapperScreen>
         <Image source={BRQMoviesLogo} />
 
@@ -160,6 +152,6 @@ export const LoginScreen: ScreenComponent<MainStackParamList, 'Login'> = ({
           </Text>
         </TouchableOpacity>
       </WrapperScreen>
-    </KeyboardAwareScrollView>
+    </ScrollView>
   );
 };

@@ -21,6 +21,9 @@ const config: JestConfigWithTsJest = {
       },
     ],
   },
+  transformIgnorePatterns: [
+    'node_modules/(?!((jest-)?react-native|@react-native(-community)?)|react-navigation|@react-navigation/.*|react-native-svg|react-native-device-info|phosphor-react-native)',
+  ],
   testRegex: '(/__tests__/.*|\\.(test|spec))\\.(ts|tsx|js)$',
   // testPathIgnorePatterns: ['\\.snap$', '<rootDir>/node_modules/'],
   // cacheDirectory: '.jest/cache',

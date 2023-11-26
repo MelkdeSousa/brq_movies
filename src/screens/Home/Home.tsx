@@ -4,7 +4,9 @@ import { MainStackParamList } from '@/navigation/MainStack';
 
 import { useAuth } from '@/contexts/Auth';
 import { fontThemeInNumber, removePx } from '@/utils/responsive';
-import { DotsThreeOutlineVertical, SignOut } from 'phosphor-react-native';
+import DotsThreeOutlineVertical from 'phosphor-react-native/src/icons/DotsThreeOutlineVertical';
+import SignOut from 'phosphor-react-native/src/icons/SignOut';
+
 import { useMemo, useState } from 'react';
 import { StatusBar, useWindowDimensions } from 'react-native';
 import { SceneMap, TabBar, TabView } from 'react-native-tab-view';
