@@ -29,6 +29,8 @@ export const MainStack = () => {
         headerShown: false,
         statusBarColor: colors.neutral,
         statusBarStyle: 'light',
+        statusBarTranslucent: true,
+
       }}
       initialRouteName={user?.login ? 'Home' : 'Login'}>
       {/* @ts-ignore */}
@@ -36,7 +38,7 @@ export const MainStack = () => {
       {/* @ts-ignore */}
       <Screen name="Home" component={HomeScreen} />
       {/* @ts-ignore */}
-      <Screen name='DetailMovie' component={DetailMovieScreen} options={{ statusBarTranslucent: true, statusBarStyle: 'light', statusBarAnimation: 'fade' }} />
+      <Screen name='DetailMovie' component={DetailMovieScreen} options={{ statusBarTranslucent: true, statusBarColor: 'transparent' }} />
     </Navigator>
   );
 };

@@ -3,9 +3,9 @@ import { Text } from '@/components/Text';
 import { MainStackParamList } from '@/navigation/MainStack';
 
 import { useAuth } from '@/contexts/Auth';
-import { fontThemeInNumber } from '@/utils/responsive';
+import { fontThemeInNumber, removePx } from '@/utils/responsive';
 import { DotsThreeOutlineVertical, SignOut } from 'phosphor-react-native';
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { useWindowDimensions } from 'react-native';
 import { SceneMap, TabBar, TabView } from 'react-native-tab-view';
 import {
@@ -26,14 +26,14 @@ export const HomeScreen: ScreenComponent<MainStackParamList, 'Home'> = ({
   navigation,
 }) => {
   const layout = useWindowDimensions();
-  const { colors, fontFamily } = useTheme();
+  const { colors, fontFamily, spacing } = useTheme();
   const { logout } = useAuth();
 
   const [index, setIndex] = useState(0);
-  const [routes] = useState([
+  const routes = useMemo(() => [
     { key: 'AllMovies', title: 'Todos os Filmes' },
     { key: 'Favorites', title: 'Filmes Favoritos' },
-  ]);
+  ], []);
 
   const handleLogout = () => {
     logout();
@@ -46,7 +46,7 @@ export const HomeScreen: ScreenComponent<MainStackParamList, 'Home'> = ({
 
   return (
     <HeaderButtonsProvider stackType="native">
-      <Screen.Background>
+      <Screen.Background style={{ paddingTop: removePx(spacing['3']) }}>
         <Screen.Container
           style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
           <Text size="3xl" weight="bold">
