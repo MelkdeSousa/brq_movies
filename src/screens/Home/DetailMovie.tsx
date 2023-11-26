@@ -10,56 +10,56 @@ import FastImage from 'react-native-fast-image';
 import { useTheme } from 'styled-components/native';
 
 export const DetailMovieScreen: ScreenComponent<
-    MainStackParamList,
-    'DetailMovie'
+  MainStackParamList,
+  'DetailMovie'
 > = ({
-    route: {
-        params: { movie },
-    },
-    navigation,
+  route: {
+    params: { movie },
+  },
+  navigation,
 }) => {
-        const uri = movieBanner(movie?.poster_path);
-        const { spacing } = useTheme();
+  const uri = movieBanner(movie?.poster_path);
+  const { spacing } = useTheme();
 
-        const { aspectRatio, width, loading } = useImageDimensions(uri);
+  const { aspectRatio, width, loading } = useImageDimensions(uri);
 
-        return (
+  return (
+    <>
+      <Screen.HeaderMovie />
+      <Screen.Background>
+        <ScrollView
+          contentContainerStyle={
+            loading
+              ? { flex: 1, justifyContent: 'center', alignItems: 'center' }
+              : {}
+          }>
+          {loading ? (
+            <Spinner />
+          ) : (
             <>
-                <Screen.HeaderMovie />
-                <Screen.Background>
-                    <ScrollView
-                        contentContainerStyle={
-                            loading
-                                ? { flex: 1, justifyContent: 'center', alignItems: 'center' }
-                                : {}
-                        }>
-                        {loading ? (
-                            <Spinner />
-                        ) : (
-                            <>
-                                <FastImage
-                                    source={{ uri }}
-                                    style={{
-                                        width: width,
-                                        height: width / aspectRatio,
-                                    }}
-                                    resizeMode="stretch"
-                                />
-                                <Screen.Container style={{ rowGap: removePx(spacing['4']) }}>
-                                    <Text size="4xl" weight="bold">
-                                        {movie.title}
-                                    </Text>
+              <FastImage
+                source={{ uri }}
+                style={{
+                  width: width,
+                  height: width / aspectRatio,
+                }}
+                resizeMode="stretch"
+              />
+              <Screen.Container style={{ rowGap: removePx(spacing['4']) }}>
+                <Text size="4xl" weight="bold">
+                  {movie.title}
+                </Text>
 
-                                    <Text size="3xl" type="inactive" weight="bold">
-                                        Sinopse
-                                    </Text>
+                <Text size="3xl" type="inactive" weight="bold">
+                  Sinopse
+                </Text>
 
-                                    <Text size="2xl">{movie.overview}</Text>
-                                </Screen.Container>
-                            </>
-                        )}
-                    </ScrollView>
-                </Screen.Background>
+                <Text size="2xl">{movie.overview}</Text>
+              </Screen.Container>
             </>
-        );
-    };
+          )}
+        </ScrollView>
+      </Screen.Background>
+    </>
+  );
+};
