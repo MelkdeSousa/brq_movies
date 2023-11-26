@@ -130,6 +130,7 @@ export const LoginScreen: ScreenComponent<MainStackParamList, 'Login'> = ({
                   </TouchableOpacity>
                 }
                 placeholder="Senha"
+                secureTextEntry
                 value={String(value)}
                 onBlur={onBlur}
                 onChangeText={onChange}
