@@ -14,4 +14,8 @@ declare global {
     ParamList = ParamListBase,
     RouteName extends keyof ParamList,
   > = (props: Screen<ParamList, RouteName>) => JSX.Element;
+
+  type ContextProviderProps<T = {}> = {
+    children: React.ReactNode;
+  } & T;
 }

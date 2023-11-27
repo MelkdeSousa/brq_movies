@@ -10,17 +10,13 @@ export type LoginData = {
   password: string;
 };
 
-export type AuthContextProps = {
+export type AuthContextState = {
   user: UserEntity | null;
   login: (data: LoginData) => void;
   logout: () => void;
 };
 
-export type AuthProviderProps = {
-  children: React.ReactNode;
-};
-
-const initialState: AuthContextProps = {
+const initialState: AuthContextState = {
   login: () => {},
   logout: () => {},
   user: null,
@@ -28,7 +24,7 @@ const initialState: AuthContextProps = {
 
 const AuthContext = createContext(initialState);
 
-export const AuthProvider = ({ children }: AuthProviderProps) => {
+export const AuthProvider = ({ children }: ContextProviderProps) => {
   const [user, setUser] = useLocalStorage<UserEntity | null>(
     '@brq-movies:user',
     null,
