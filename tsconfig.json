@@ -9,6 +9,19 @@
       "@components/*": [
         "src/components/*"
       ]
-    }
-  }
+    },
+    "typeRoots": [
+      "node_modules/@types",
+      "./src/types"
+    ]
+  },
+  "include": [
+    "src/types/*.ts",
+    "src/**/*.ts",
+  ],
+  "exclude": [
+    "**/*.test.tsx",
+    "**/*.spec.tsx",
+    "node_modules"
+  ]
 }

@@ -8,6 +8,9 @@ module.exports = {
       'module:react-native-dotenv',
       {
         moduleName: '@env',
+        safe: false,
+        verbose: false,
+        path: '.env',
       },
     ],
     [
