@@ -1,6 +1,9 @@
 # BRQ Movies
 
-![Video](/docs/demo-brq-movies.webm.webm)
+<video controls>
+    <source src="./docs/demo-brq-movies.webm" type="video/webm">
+    Your browser does not support the video tag.
+</video>
 
 <!-- ```shell
 keytool -genkey -v -keystore <keystore_name_file>.keystore -alias <alias_keystore_key> -keyalg RSA -keysize 2048 -validity 10000
