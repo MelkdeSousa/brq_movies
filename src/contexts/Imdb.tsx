@@ -10,6 +10,7 @@ export type IMDBContextState = {
   listMovies: (page: number) => Promise<DiscoverResponse>;
   checkAuthentication: () => Promise<AuthenticationResponse>;
   detailMovie: (id: DiscoveryMovie['id']) => Promise<DetailMovieResponse>;
+  movieBanner: (posterPath: string) => string;
 };
 
 const IMDBContext = createContext<IMDBContextState>({} as IMDBContextState);

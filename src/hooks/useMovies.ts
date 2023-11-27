@@ -1,4 +1,4 @@
-import { listMovies } from '@/services/imdbAPI';
+import { useIMDB } from '@/contexts/Imdb';
 import { DiscoveryMovie } from '@/services/imdbTypes';
 import { useReducer } from 'react';
 
@@ -76,6 +76,7 @@ const reducer = (state: MoviesState, action: ActionReducer): MoviesState => {
 
 export const useMovies = () => {
   const [movies, dispatch] = useReducer(reducer, initialState);
+  const { listMovies } = useIMDB();
 
   const loadListMovies = async () => {
     try {
