@@ -7,7 +7,9 @@
     "ios": "react-native run-ios",
     "lint": "eslint .",
     "start": "react-native start",
-    "test": "jest",
+    "test": "npx jest",
+    "test:watch": "npx jest --watchAll",
+    "test:cov": "npx jest --coverage --coverageDirectory=__tests__/coverage",
     "format": "prettier --write .",
     "debug:reactotron": "adb reverse tcp:9090 tcp:9090"
   },

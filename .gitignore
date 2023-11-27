@@ -68,3 +68,5 @@ yarn-error.log
 .env
 
 .jest/
+__tests__/__snapshots__
+__tests__/coverage
