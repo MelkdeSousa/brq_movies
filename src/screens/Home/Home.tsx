@@ -7,8 +7,13 @@ import { fontThemeInNumber, removePx } from '@/utils/responsive';
 import DotsThreeOutlineVertical from 'phosphor-react-native/src/icons/DotsThreeOutlineVertical';
 import SignOut from 'phosphor-react-native/src/icons/SignOut';
 
+import { useFocusEffect } from '@react-navigation/native';
 import { useMemo, useState } from 'react';
-import { StatusBar, useWindowDimensions } from 'react-native';
+import {
+  DeviceEventEmitter,
+  StatusBar,
+  useWindowDimensions,
+} from 'react-native';
 import { SceneMap, TabBar, TabView } from 'react-native-tab-view';
 import {
   HeaderButtonsProvider,
@@ -48,6 +53,10 @@ export const HomeScreen: ScreenComponent<MainStackParamList, 'Home'> = ({
       index: 0,
     });
   };
+
+  useFocusEffect(() => {
+    DeviceEventEmitter.emit('tabChange', index);
+  });
 
   return (
     <HeaderButtonsProvider stackType="native">
@@ -90,7 +99,10 @@ export const HomeScreen: ScreenComponent<MainStackParamList, 'Home'> = ({
           )}
           navigationState={{ index, routes }}
           renderScene={renderScene}
-          onIndexChange={setIndex}
+          onIndexChange={e => {
+            setIndex(e);
+            DeviceEventEmitter.emit('tabChange', e);
+          }}
           initialLayout={{ width: layout.width }}
         />
       </Screen.Background>
