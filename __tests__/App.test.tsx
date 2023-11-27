@@ -11,6 +11,7 @@ import reactNativeSplashScreen from '../jest/__mocks__/react-native-splash-scree
 
 beforeAll(() => {
   jest.mock('react-native-splash-screen', () => reactNativeSplashScreen);
+
   jest.mock('@/services/imdbAPI', (): typeof import('@/services/imdbAPI') => ({
     listMovies: jest.fn().mockReturnValue(imdbMock),
     checkAuthentication: jest.fn().mockReturnValue(true),

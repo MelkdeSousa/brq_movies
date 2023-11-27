@@ -1,9 +1,11 @@
 import { Env } from '@/config/env';
 
-const envs: Env = {
+const env: Env = {
   API_KEY_IMDB: '123',
 };
 
-jest.mock('react-native-dotenv', (): Env => envs);
+jest.mock('@/config/env', (): typeof import('@/config/env') => ({
+  env,
+}));
 
-export default envs;
+export default env;

@@ -12,7 +12,6 @@ const config: JestConfigWithTsJest = {
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
   transform: {
     '^.+\\.(js)$': '<rootDir>/node_modules/babel-jest',
-    // '\\.(ts|tsx)$': '<rootDir>/node_modules/ts-jest/preprocessor.js',
     '^.+\\.jsx$': 'babel-jest',
     '^.+\\.tsx?$': [
       'ts-jest',
@@ -25,8 +24,6 @@ const config: JestConfigWithTsJest = {
     'node_modules/(?!((jest-)?react-native|@react-native(-community)?)|react-navigation|@react-navigation/.*|react-native-svg|react-native-device-info|phosphor-react-native)',
   ],
   testRegex: '(/__tests__/.*|\\.(test|spec))\\.(ts|tsx|js)$',
-  // testPathIgnorePatterns: ['\\.snap$', '<rootDir>/node_modules/'],
-  // cacheDirectory: '.jest/cache',
 };
 
 export default config;

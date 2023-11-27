@@ -1,4 +1,4 @@
-import { API_KEY_IMDB } from 'react-native-dotenv';
+import { API_KEY_IMDB } from '@env';
 import { z } from 'zod';
 
 const envSchema = z.object({
