@@ -24,6 +24,7 @@ export const MovieBanner = ({ posterPath, index, movie }: MovieBannerProps) => {
 
   return (
     <TouchableOpacity
+      testID={`movie-banner-container-${movie.id}`}
       style={{
         width: 150,
         height: removePx(spacing['64']),
@@ -34,6 +35,7 @@ export const MovieBanner = ({ posterPath, index, movie }: MovieBannerProps) => {
       }}
       onPress={handleDetailMovie}>
       <FastImage
+        testID={`movie-banner-image-${movie.id}`}
         style={{
           borderRadius: removePx(radii['2xl']),
           width: removePx(spacing['40']),

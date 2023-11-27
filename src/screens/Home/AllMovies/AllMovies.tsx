@@ -11,6 +11,9 @@ export const AllMoviesTab = () => {
   return (
     <Screen.Container style={{ flex: 1, padding: 0 }}>
       <FlashList
+        testID="all-movies-list"
+        accessibilityValue={{ now: movies.length }}
+        accessibilityLabel="Lista de Filmes"
         data={movies}
         refreshControl={
           <RefreshControl refreshing={loading} onRefresh={loadListMovies} />
