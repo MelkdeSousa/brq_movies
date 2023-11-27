@@ -52,6 +52,7 @@ export const HeaderMovie = () => {
         paddingHorizontal: removePx(spacing['4']),
       }}>
       <TouchableOpacity
+        testID="back-button"
         style={{
           backgroundColor: 'transparent',
           borderRadius: removePx(radii.full),
@@ -71,6 +72,8 @@ export const HeaderMovie = () => {
           justifyContent: 'center',
           alignItems: 'center',
         }}
+        testID="favorite-button"
+        accessibilityState={{ checked: !!isFavorite }}
         onPress={() => {
           setIsFavorite(state => {
             if (!state) {

@@ -120,3 +120,72 @@ test('List movies on Home', async () => {
     ),
   ).toBeVisible();
 });
+
+test('Favorite movie', async () => {
+  const { getByText, queryByText, findByTestId } = render(<App />);
+
+  expect(getByText('BRQ Movies')).toBeVisible();
+
+  expect(queryByText('😢 Não foi possivel carregar os filmes.')).toBeNull();
+
+  expect(listMovies).toHaveBeenCalled();
+
+  await act(async () => {
+    fireEvent.press(
+      await findByTestId(
+        `movie-banner-container-${imdbDiscoverResponseMock.results[0].id}`,
+      ),
+    );
+  });
+
+  expect(getByText(imdbDiscoverResponseMock.results[0].title)).toBeVisible();
+
+  await act(async () => {
+    fireEvent.press(await findByTestId('favorite-button'));
+  });
+
+  expect(await findByTestId('favorite-button')).toHaveProp(
+    'accessibilityState',
+    { checked: true },
+  );
+});
+
+test('List movies on Favorite', async () => {
+  const { findByTestId, getByLabelText } = render(<App />);
+
+  await act(async () => {
+    fireEvent.press(
+      await findByTestId(
+        `movie-banner-container-${imdbDiscoverResponseMock.results[0].id}`,
+      ),
+    );
+  });
+
+  expect(await findByTestId('back-button')).toBeVisible();
+
+  await act(async () => {
+    fireEvent.press(await findByTestId('back-button'));
+    fireEvent.press(getByLabelText('Filmes Favoritos'));
+  });
+
+  expect(
+    await findByTestId(
+      `movie-banner-container-${imdbDiscoverResponseMock.results[0].id}`,
+    ),
+  ).toBeVisible();
+
+  await act(async () => {
+    fireEvent.press(
+      await findByTestId(
+        `movie-banner-container-${imdbDiscoverResponseMock.results[0].id}`,
+      ),
+    );
+  });
+
+  expect(await findByTestId('favorite-button')).toHaveProp(
+    'accessibilityState',
+    {
+      checked: true,
+    },
+  );
+});
