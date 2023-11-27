@@ -3,7 +3,7 @@ import { DetailMovieScreen } from '@/screens/Home/DetailMovie';
 import { HomeScreen } from '@/screens/Home/Home';
 import { LoginScreen } from '@/screens/Login/Login';
 import { DiscoveryMovie } from '@/services/imdbTypes';
-import { NavigationProp } from '@react-navigation/native';
+import { NavigationProp, RouteProp } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { useTheme } from 'styled-components/native';
 
@@ -16,6 +16,8 @@ export type MainStackParamList = {
 };
 
 export type MainStackNavigationProp = NavigationProp<MainStackParamList>;
+export type MainStackRouteProp<RouteName extends keyof MainStackParamList> =
+  RouteProp<MainStackParamList, RouteName>;
 
 const { Navigator, Screen } = createNativeStackNavigator<MainStackParamList>();
 

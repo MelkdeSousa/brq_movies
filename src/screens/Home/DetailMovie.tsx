@@ -55,7 +55,7 @@ export const DetailMovieScreen: ScreenComponent<
                 </Text>
 
                 <Text size="xl">
-                  {movie.overview || 'Nenhuma sinopse informada.'}
+                  {movie.overview ?? 'Nenhuma sinopse informada.'}
                 </Text>
               </Screen.Container>
             </>

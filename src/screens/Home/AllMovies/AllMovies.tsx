@@ -18,9 +18,8 @@ export const AllMoviesTab = () => {
         refreshControl={
           <RefreshControl refreshing={loading} onRefresh={loadListMovies} />
         }
-        renderItem={({ item, index }) => (
+        renderItem={({ item }) => (
           <MovieBanner
-            index={index}
             movie={item}
             posterPath={item.poster_path}
             key={item.id}
@@ -31,7 +30,7 @@ export const AllMoviesTab = () => {
         onEndReached={loadListMovies}
         onEndReachedThreshold={0.2}
         ListFooterComponent={<ListMovies.Footer loading={loading} />}
-        ListEmptyComponent={<ListMovies.Empty error={error} />}
+        ListEmptyComponent={<ListMovies.Error error={error} />}
       />
     </Screen.Container>
   );

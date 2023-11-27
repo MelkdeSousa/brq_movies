@@ -9,11 +9,10 @@ import { useTheme } from 'styled-components/native';
 
 export type MovieBannerProps = {
   posterPath: string;
-  index: number;
   movie: DiscoveryMovie;
 };
 
-export const MovieBanner = ({ posterPath, index, movie }: MovieBannerProps) => {
+export const MovieBanner = ({ posterPath, movie }: MovieBannerProps) => {
   const { radii, spacing } = useTheme();
 
   const navigation = useNavigation<MainStackNavigationProp>();
@@ -24,7 +23,7 @@ export const MovieBanner = ({ posterPath, index, movie }: MovieBannerProps) => {
 
   return (
     <TouchableOpacity
-      testID={`movie-banner-container-${movie.id}`}
+      testID={`movie-banner-container-${movie?.id}`}
       style={{
         width: 150,
         height: removePx(spacing['64']),
@@ -35,7 +34,7 @@ export const MovieBanner = ({ posterPath, index, movie }: MovieBannerProps) => {
       }}
       onPress={handleDetailMovie}>
       <FastImage
-        testID={`movie-banner-image-${movie.id}`}
+        testID={`movie-banner-image-${movie?.id}`}
         style={{
           borderRadius: removePx(radii['2xl']),
           width: removePx(spacing['40']),

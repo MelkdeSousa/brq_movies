@@ -1,6 +1,12 @@
-import { MainStackNavigationProp } from '@/navigation/MainStack';
+import { useAuth } from '@/contexts/Auth';
+import { useLocalStorage } from '@/hooks/useLocalStorage';
+import {
+  MainStackNavigationProp,
+  MainStackRouteProp,
+} from '@/navigation/MainStack';
+import { DiscoveryMovie } from '@/services/imdbTypes';
 import { removePx } from '@/utils/responsive';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import ArrowLeft from 'phosphor-react-native/src/icons/ArrowLeft';
 import Heart from 'phosphor-react-native/src/icons/Heart';
 import { useMemo } from 'react';
@@ -12,6 +18,15 @@ export const HeaderMovie = () => {
 
   const { spacing, colors, radii } = useTheme();
   const navigation = useNavigation<MainStackNavigationProp>();
+  const { params } = useRoute<MainStackRouteProp<'DetailMovie'>>();
+  const { user } = useAuth();
+
+  const favoriteStorageKey = `@brq-movies:${user?.login}:isFavorite:${params.movie.id}`;
+
+  const [isFavorite, setIsFavorite] = useLocalStorage<DiscoveryMovie | null>(
+    favoriteStorageKey,
+    null,
+  );
 
   const buttonIconsProps = useMemo(
     () => ({
@@ -56,8 +71,19 @@ export const HeaderMovie = () => {
           justifyContent: 'center',
           alignItems: 'center',
         }}
-        onPress={() => {}}>
-        <Heart {...buttonIconsProps} />
+        onPress={() => {
+          setIsFavorite(state => {
+            if (!state) {
+              return params.movie;
+            }
+
+            return null;
+          });
+        }}>
+        <Heart
+          {...buttonIconsProps}
+          weight={isFavorite?.id ? 'fill' : 'regular'}
+        />
       </TouchableOpacity>
     </View>
   );

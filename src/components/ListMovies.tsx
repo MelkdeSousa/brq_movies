@@ -2,7 +2,7 @@ import { MoviesState } from '@/hooks/useMovies';
 import { Spinner } from './Spinner';
 import { Text } from './Text';
 
-const Footer = ({ loading }: { loading: boolean }) => {
+const Footer = ({ loading = false }: { loading?: boolean }) => {
   if (!loading) {
     return null;
   }
@@ -10,7 +10,7 @@ const Footer = ({ loading }: { loading: boolean }) => {
   return <Spinner type="active" size="large" />;
 };
 
-const Empty = ({ error }: Pick<MoviesState, 'error'>) => {
+const ErrorMessage = ({ error }: Pick<MoviesState, 'error'>) => {
   if (!error.has) {
     return null;
   }
@@ -24,7 +24,18 @@ const Empty = ({ error }: Pick<MoviesState, 'error'>) => {
   );
 };
 
+const Empty = () => (
+  <Text style={{ textAlign: 'center' }} size="4xl">
+    Sem filmes...
+    {'\n'}
+    <Text style={{ textAlign: 'center' }} size="xl">
+      Por enquanto. 😉
+    </Text>
+  </Text>
+);
+
 export const ListMovies = {
   Footer,
+  Error: ErrorMessage,
   Empty,
 };
