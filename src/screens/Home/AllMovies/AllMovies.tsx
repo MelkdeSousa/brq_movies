@@ -5,9 +5,7 @@ import { useMovies } from '@/hooks/useMovies';
 import { FlashList } from '@shopify/flash-list';
 import { RefreshControl } from 'react-native';
 
-export const AllMoviesTab = (...props: any) => {
-  console.log({ props });
-
+export const AllMoviesTab = () => {
   const { movies, loading, error, loadListMovies } = useMovies();
 
   return (

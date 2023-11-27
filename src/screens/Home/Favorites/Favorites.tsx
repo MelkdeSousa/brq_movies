@@ -8,9 +8,7 @@ import { FlashList } from '@shopify/flash-list';
 import React, { useEffect, useState } from 'react';
 import { DeviceEventEmitter, RefreshControl } from 'react-native';
 
-export const FavoritesTab = (...props: any) => {
-  console.log({ props });
-
+export const FavoritesTab = () => {
   const { user } = useAuth();
 
   const favoriteKeys = storage
