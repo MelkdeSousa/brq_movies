@@ -3,7 +3,13 @@ import { Input } from '@/components/Input';
 import Lock from 'phosphor-react-native/src/icons/Lock';
 import User from 'phosphor-react-native/src/icons/User';
 import XCircle from 'phosphor-react-native/src/icons/XCircle';
-import { Image, Keyboard, ScrollView, TouchableOpacity } from 'react-native';
+import {
+  Image,
+  Keyboard,
+  KeyboardAvoidingView,
+  Platform,
+  TouchableOpacity,
+} from 'react-native';
 
 import { Button } from '@/components/Button';
 import { Text } from '@/components/Text';
@@ -76,7 +82,13 @@ export const LoginScreen: ScreenComponent<MainStackParamList, 'Login'> = ({
   });
 
   return (
-    <ScrollView>
+    <KeyboardAvoidingView
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      style={{ flex: 1 }}
+      contentContainerStyle={{
+        flexGrow: 1,
+        flex: 1,
+      }}>
       <WrapperScreen>
         <Image source={BRQMoviesLogo} />
 
@@ -152,6 +164,6 @@ export const LoginScreen: ScreenComponent<MainStackParamList, 'Login'> = ({
           </Text>
         </TouchableOpacity>
       </WrapperScreen>
-    </ScrollView>
+    </KeyboardAvoidingView>
   );
 };

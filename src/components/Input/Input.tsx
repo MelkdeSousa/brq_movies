@@ -51,7 +51,7 @@ export const Input = ({
       </InputContainer>
 
       {!!error && (
-        <Text type="error" size="lg">
+        <Text type="error" size="lg" testID="error-message">
           {errorMessage}
         </Text>
       )}
