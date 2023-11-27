@@ -15,6 +15,10 @@
 
 ## Como executar
 
+- Clone o projeto
+```shell
+git clone https://github.com/melkdesousa/brq_movies.git
+```
 - Criar o arquivo de variáveis de ambiente
 ```shell
 cp .env.example .env
