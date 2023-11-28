@@ -22,12 +22,14 @@
 - FlashList
 - FastImage
 - Jest
+- Testing Library
 
 ## Como executar
 
 - Clone o projeto
 ```shell
 git clone https://github.com/melkdesousa/brq_movies.git
+cd brq_movies/
 ```
 - Criar o arquivo de variáveis de ambiente
 ```shell
