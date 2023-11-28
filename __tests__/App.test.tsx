@@ -14,10 +14,11 @@ import {
 } from '@/services/imdbMock';
 import { theme, themeRN } from '@/styles/theme';
 import { NavigationContainer } from '@react-navigation/native';
-import { fireEvent, render } from '@testing-library/react-native';
-import { act } from 'react-test-renderer';
+import { render, userEvent } from '@testing-library/react-native';
 import { ThemeProvider } from 'styled-components/native';
 import reactNativeSplashScreen from '../jest/__mocks__/react-native-splash-screen';
+
+const user = userEvent.setup();
 
 beforeAll(() => {
   jest.mock('react-native-splash-screen', () => reactNativeSplashScreen);
@@ -60,132 +61,121 @@ const App = () => (
   </IMDBProvider>
 );
 
-test('Login form', async () => {
-  const { getByText, getByPlaceholderText } = render(<App />);
+describe('Login flow', () => {
+  it('Login form', async () => {
+    const { getByText, getByPlaceholderText } = render(<App />);
 
-  expect(getByPlaceholderText('Usuário')).toBeVisible();
-  expect(getByPlaceholderText('Senha')).toBeVisible();
-  expect(getByText('Entrar')).toBeVisible();
-  expect(getByText('Entrar')).toBeDisabled();
-});
-
-test('Input invalid login', async () => {
-  const { getByText, getByPlaceholderText, findAllByTestId } = render(<App />);
-
-  await act(async () => {
-    fireEvent.changeText(getByPlaceholderText('Usuário'), 'melk');
-    fireEvent.changeText(getByPlaceholderText('Senha'), '321');
+    expect(getByPlaceholderText('Usuário')).toBeVisible();
+    expect(getByPlaceholderText('Senha')).toBeVisible();
+    expect(getByText('Entrar')).toBeVisible();
+    expect(getByText('Entrar')).toBeDisabled();
   });
 
-  expect(getByText('Entrar')).toBeEnabled();
+  it('Input invalid login', async () => {
+    const { getByText, getByPlaceholderText, findAllByTestId } = render(
+      <App />,
+    );
 
-  await act(async () => {
-    fireEvent.press(getByText('Entrar'));
+    await user.type(getByPlaceholderText('Usuário'), 'melk');
+    await user.type(getByPlaceholderText('Senha'), '321');
+
+    expect(getByText('Entrar')).toBeEnabled();
+    await user.press(getByText('Entrar'));
+
+    const errors = await findAllByTestId('error-message');
+
+    expect(errors.length).toEqual(2);
   });
 
-  const errors = await findAllByTestId('error-message');
+  it('Input valid login', async () => {
+    const { getByText, getByPlaceholderText, queryByText } = render(<App />);
 
-  expect(errors.length).toEqual(2);
-});
+    await user.type(getByPlaceholderText('Usuário'), 'user');
+    await user.type(getByPlaceholderText('Senha'), '123');
 
-test('Input valid login', async () => {
-  const { getByText, getByPlaceholderText, queryByText } = render(<App />);
+    expect(getByText('Entrar')).toBeEnabled();
 
-  await act(async () => {
-    fireEvent.changeText(getByPlaceholderText('Usuário'), 'user');
-    fireEvent.changeText(getByPlaceholderText('Senha'), '123');
+    await user.press(getByText('Entrar'));
+
+    expect(queryByText('Entrar')).toBeNull();
   });
-
-  expect(getByText('Entrar')).toBeEnabled();
-
-  await act(async () => {
-    fireEvent.press(getByText('Entrar'));
-  });
-
-  expect(queryByText('Entrar')).toBeNull();
 });
 
-test('List movies on Home', async () => {
-  const { getByText, queryByText, findByTestId } = render(<App />);
+describe('Favorite movie flow', () => {
+  it('Favorite movie', async () => {
+    const { getByText, queryByText, findByTestId } = render(<App />);
 
-  expect(getByText('BRQ Movies')).toBeVisible();
+    expect(getByText('BRQ Movies')).toBeVisible();
 
-  expect(queryByText('😢 Não foi possivel carregar os filmes.')).toBeNull();
+    expect(queryByText('😢 Não foi possivel carregar os filmes.')).toBeNull();
 
-  expect(listMovies).toHaveBeenCalled();
+    expect(listMovies).toHaveBeenCalled();
 
-  expect(
-    await findByTestId(
-      `movie-banner-container-${imdbDiscoverResponseMock.results[0].id}`,
-    ),
-  ).toBeVisible();
-});
-
-test('Favorite movie', async () => {
-  const { getByText, queryByText, findByTestId } = render(<App />);
-
-  expect(getByText('BRQ Movies')).toBeVisible();
-
-  expect(queryByText('😢 Não foi possivel carregar os filmes.')).toBeNull();
-
-  expect(listMovies).toHaveBeenCalled();
-
-  await act(async () => {
-    fireEvent.press(
+    await user.press(
       await findByTestId(
         `movie-banner-container-${imdbDiscoverResponseMock.results[0].id}`,
       ),
     );
+
+    expect(getByText(imdbDiscoverResponseMock.results[0].title)).toBeVisible();
+
+    await user.press(await findByTestId('favorite-button'));
+
+    expect(await findByTestId('favorite-button')).toHaveProp(
+      'accessibilityState',
+      { checked: true },
+    );
   });
-
-  expect(getByText(imdbDiscoverResponseMock.results[0].title)).toBeVisible();
-
-  await act(async () => {
-    fireEvent.press(await findByTestId('favorite-button'));
-  });
-
-  expect(await findByTestId('favorite-button')).toHaveProp(
-    'accessibilityState',
-    { checked: true },
-  );
 });
 
-test('List movies on Favorite', async () => {
-  const { findByTestId, getByLabelText } = render(<App />);
+describe('List movies', () => {
+  it('List movies on Home', async () => {
+    const { getByText, queryByText, findByTestId } = render(<App />);
 
-  await act(async () => {
-    fireEvent.press(
+    expect(getByText('BRQ Movies')).toBeVisible();
+
+    expect(queryByText('😢 Não foi possivel carregar os filmes.')).toBeNull();
+
+    expect(listMovies).toHaveBeenCalled();
+
+    expect(
+      await findByTestId(
+        `movie-banner-container-${imdbDiscoverResponseMock.results[0].id}`,
+      ),
+    ).toBeVisible();
+  });
+
+  it('List movies on Favorite', async () => {
+    const { findByTestId, getByLabelText } = render(<App />);
+
+    await user.press(
       await findByTestId(
         `movie-banner-container-${imdbDiscoverResponseMock.results[0].id}`,
       ),
     );
-  });
 
-  expect(await findByTestId('back-button')).toBeVisible();
+    expect(await findByTestId('back-button')).toBeVisible();
 
-  await act(async () => {
-    fireEvent.press(await findByTestId('back-button'));
-    fireEvent.press(getByLabelText('Filmes Favoritos'));
-  });
+    await user.press(await findByTestId('back-button'));
+    await user.press(getByLabelText('Filmes Favoritos'));
 
-  expect(
-    await findByTestId(
-      `movie-banner-container-${imdbDiscoverResponseMock.results[0].id}`,
-    ),
-  ).toBeVisible();
+    expect(
+      await findByTestId(
+        `movie-banner-container-${imdbDiscoverResponseMock.results[0].id}`,
+      ),
+    ).toBeVisible();
 
-  await act(async () => {
-    fireEvent.press(
+    await user.press(
       await findByTestId(
         `movie-banner-container-${imdbDiscoverResponseMock.results[0].id}`,
       ),
     );
-  });
 
-  expect(await findByTestId('favorite-button')).toHaveProp(
-    'accessibilityState',
-    {
-      checked: true,
-    },
-  );
+    expect(await findByTestId('favorite-button')).toHaveProp(
+      'accessibilityState',
+      {
+        checked: true,
+      },
+    );
+  });
 });
