@@ -89,12 +89,12 @@ android {
             keyPassword 'android'
         }
 
-        release {
-			storeFile file('brq_movies_key.keystore')
-			storePassword file('password.txt').getText()
-			keyAlias file('alias.txt').getText()
-			keyPassword file('password.txt').getText()
-		}
+        // release {
+		// 	storeFile file('brq_movies_key.keystore')
+		// 	storePassword file('password.txt').getText()
+		// 	keyAlias file('alias.txt').getText()
+		// 	keyPassword file('password.txt').getText()
+		// }
     }
     buildTypes {
         debug {
@@ -103,7 +103,8 @@ android {
         release {
             // Caution! In production, you need to generate your own keystore file.
             // see https://reactnative.dev/docs/signed-apk-android.
-            signingConfig signingConfigs.release
+            // signingConfig signingConfigs.release
+            signingConfig signingConfigs.debug
             minifyEnabled enableProguardInReleaseBuilds
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
         }
