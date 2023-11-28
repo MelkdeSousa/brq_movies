@@ -9,11 +9,15 @@ import { removePx } from '@/utils/responsive';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import ArrowLeft from 'phosphor-react-native/src/icons/ArrowLeft';
 import Heart from 'phosphor-react-native/src/icons/Heart';
-import { useMemo } from 'react';
-import { StatusBar, TouchableOpacity, View } from 'react-native';
+import { useMemo, useRef } from 'react';
+import { Animated, StatusBar, TouchableOpacity } from 'react-native';
 import { useTheme } from 'styled-components/native';
 
-export const HeaderMovie = () => {
+export type HeaderMovieProps = {
+  scrollY: Animated.Value;
+};
+
+export const HeaderMovie = ({ scrollY }: HeaderMovieProps) => {
   const statusBarHeight = StatusBar.currentHeight ?? 24;
 
   const { spacing, colors, radii } = useTheme();
@@ -28,28 +32,38 @@ export const HeaderMovie = () => {
     null,
   );
 
+  const backgroundColor = useRef(
+    scrollY.interpolate({
+      inputRange: [0, 100],
+      outputRange: ['transparent', colors.neutral],
+      extrapolate: 'clamp',
+    }),
+  ).current;
+
   const buttonIconsProps = useMemo(
     () => ({
       style: { backgroundColor: 'transparent' },
       size: removePx(spacing['8']),
       color: colors.primary,
     }),
-    [],
+    [colors.primary, spacing],
   );
 
   return (
-    <View
+    <Animated.View
       style={{
         position: 'absolute',
-        top: statusBarHeight + removePx(spacing['6']),
         left: 0,
         right: 0,
         zIndex: 10,
-        backgroundColor: 'transparent',
+        backgroundColor,
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
+        flex: 1,
         paddingHorizontal: removePx(spacing['4']),
+        paddingTop: statusBarHeight + removePx(spacing['6']),
+        paddingBottom: removePx(spacing['4']),
       }}>
       <TouchableOpacity
         testID="back-button"
@@ -88,6 +102,6 @@ export const HeaderMovie = () => {
           weight={isFavorite?.id ? 'fill' : 'regular'}
         />
       </TouchableOpacity>
-    </View>
+    </Animated.View>
   );
 };

@@ -5,7 +5,8 @@ import { useImageDimensions } from '@/hooks/useImageDimensions';
 import { MainStackParamList } from '@/navigation/MainStack';
 import { movieBanner } from '@/services/imdbAPI';
 import { removePx } from '@/utils/responsive';
-import { ScrollView } from 'react-native';
+import { useState } from 'react';
+import { Animated, ScrollView } from 'react-native';
 import FastImage from 'react-native-fast-image';
 import { useTheme } from 'styled-components/native';
 
@@ -16,23 +17,24 @@ export const DetailMovieScreen: ScreenComponent<
   route: {
     params: { movie },
   },
-  navigation,
 }) => {
   const uri = movieBanner(movie?.poster_path);
   const { spacing } = useTheme();
-
   const { aspectRatio, width, loading } = useImageDimensions(uri);
+
+  const [positionScrollVertical] = useState(new Animated.Value(0));
 
   return (
     <>
-      <Screen.HeaderMovie />
+      <Screen.HeaderMovie scrollY={positionScrollVertical} />
       <Screen.Background>
         <ScrollView
-          contentContainerStyle={
-            loading
-              ? { flex: 1, justifyContent: 'center', alignItems: 'center' }
-              : {}
-          }>
+          onScroll={Animated.event(
+            [{ nativeEvent: { contentOffset: { y: positionScrollVertical } } }],
+            {
+              useNativeDriver: false,
+            },
+          )}>
           {loading ? (
             <Spinner />
           ) : (
@@ -55,6 +57,12 @@ export const DetailMovieScreen: ScreenComponent<
                 </Text>
 
                 <Text size="xl">
+                  {movie.overview ?? 'Nenhuma sinopse informada.'}
+                  {movie.overview ?? 'Nenhuma sinopse informada.'}
+                  {movie.overview ?? 'Nenhuma sinopse informada.'}
+                  {movie.overview ?? 'Nenhuma sinopse informada.'}
+                  {movie.overview ?? 'Nenhuma sinopse informada.'}
+                  {movie.overview ?? 'Nenhuma sinopse informada.'}
                   {movie.overview ?? 'Nenhuma sinopse informada.'}
                 </Text>
               </Screen.Container>
